@@ -1,0 +1,269 @@
+:root {
+    --Text: #0f1515;
+    --Light-Text: rgba(15, 21, 21, 0.9);
+    --Background: #f9fafa;
+    --Primary: #d2f64c;
+    --Secondary: #dbfa6a;
+    --Accent: #236364;
+
+    --Panel: #444;
+    --Light-Panel: #555;
+
+    --Light-Accent: rgba(35, 99, 100, 0.8);
+    --Light-Accent2: rgba(35, 99, 100, 0.5);
+    --Light-Accent3: rgba(35, 99, 100, 0.2);
+}
+
+body {
+    background-color: var(--Background);
+}
+
+/*         Color        */
+
+
+.c-text {
+    color: var(--Text);
+}
+.c-background {
+    color: var(--Background);
+}
+.c-primary {
+    color: var(--Primary);
+}
+.c-secondary {
+    color: var(--Secondary);
+}
+.c-accent {
+    color: var(--Accent);
+}
+.c-light-accent {
+    color: var(--Light-Accent);
+}
+.c-light-accent2 {
+    color: var(--Light-Accent2);
+}
+.c-light-accent3 {
+    color: var(--Light-Accent3);
+}
+
+/*         Backgournd Color        */
+
+
+.bc-text {
+    background-color: var(--Text);
+}
+.bc-background {
+    background-color: var(--Background);
+}
+.bc-primary {
+    background-color: var(--Primary);
+}
+.bc-secondary {
+    background-color: var(--Secondary);
+}
+.bc-accent {
+    background-color: var(--Accent);
+}
+.bc-light-accent {
+    background-color: var(--Light-Accent);
+}
+.bc-light-accent2 {
+    background-color: var(--Light-Accent2);
+}
+.bc-light-accent3 {
+    background-color: var(--Light-Accent3);
+}
+
+.bc-panel {
+    background-color: var(--Panel);
+}
+.bc-light-panel {
+    background-color: var(--Light-Panel)
+}
+
+
+/*         Backgournd Img        */
+
+
+.ImgBackGround {
+    background-image: url(/src/assets/Imgs/CustomerUI/Common/Backround.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+}
+.ImgBackGround::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+.SkyBackground {
+    background-image: url(/src/assets/Imgs/CustomerUI/Common/Sky.jpg);
+    background-size: 100%;
+    background-position-y: -50%;
+    background-attachment: fixed;
+}
+.ImgBackGround::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+.BlackBackground {
+    position: relative;
+}
+.BlackBackground::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* z-index: 1 */
+}
+
+
+/*         Buttons        */
+
+
+.Bttn {
+    padding: 5px 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s linear;
+}
+.InactiveBttn {
+    background-color: var(--Grey);
+    color: var(--Light-White3);
+    cursor: not-allowed !important;
+    transition: .3s linear;
+}
+.ActiveBttn {
+    background-color: var(--Secondary);
+    color: var(--Light-Text);
+    cursor: pointer;
+    transition: .3s linear;
+}
+.ActiveBttn:hover {
+    background-color: var(--Primary);
+    color: var(--Text);
+}
+.ImportantBttn {
+    background-color: var(--Prim-Blue) !important;
+    color: var(--Black-Text) !important;
+    cursor: pointer;
+    transition: .3s linear;
+}
+.ImportantBttn:hover {
+    color: white!important;
+}
+.SuccessBttn {
+    background-color: var(--Bold-Green);
+    color: white;
+    cursor: default !important;
+}
+.CancelBttn {
+    background-color: rgba(249, 56, 34, 0.8);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s linear;
+    /* ms-2 px-3 py-1 rd-5 */
+}
+.CancelBttn:hover {
+    background-color: var(--Red);
+}
+
+
+.BounceLeft {                                              /* Membership */
+    -webkit-animation: bounceLeft 1s forwards;
+            animation: bounceLeft 1s forwards;
+}
+.BounceRight {
+    -webkit-animation: bounceRight 1s forwards;
+    animation: bounceRight 1s forwards;
+}
+
+@-webkit-keyframes bounceLeft {
+    0% {
+        transform: translate3d(100%, -50%, 0);
+    }
+    50% {
+        transform: translate3d(-30px, -50%, 0);
+    }
+    100% {
+        transform: translate3d(0, -50%, 0);
+    }
+}
+@keyframes bounceLeft {
+    0% {
+        transform: translate3d(100%, -50%, 0);
+    }
+    50% {
+        transform: translate3d(-30px, -50%, 0);
+    }
+    100% {
+        transform: translate3d(0, -50%, 0);
+    }
+}
+@-webkit-keyframes bounceRight {
+    0% {
+        transform: translate3d(-100%, -50%, 0);
+    }
+    50% {
+        transform: translate3d(30px, -50%, 0);
+    }
+    100% {
+        transform: translate3d(0, -50%, 0);
+    }
+}
+@keyframes bounceRight {
+    0% {
+        transform: translate3d(-100%, -50%, 0);
+    }
+    50% {
+        transform: translate3d(30px, -50%, 0);
+    }
+    100% {
+        transform: translate3d(0, -50%, 0);
+    }
+}
+
+.Arrow-Up{                                              /* Header */
+    bottom: -10px;
+    left: 110%;
+    transform: translatex( -50% );
+    transform: rotate(180deg);
+}
+.Arrow-Down{
+    bottom: -10px;
+    left: 110%;
+    transform: translatex( -50% );
+    transform: rotate(0);
+}
+
+.bd-b-prim-5 {
+    border-bottom: 5px solid var(--Primary);
+}
+.bd-dashed-accent {
+    border: 1px dashed var(--Accent);
+}
+
+.EmptyPage {
+    padding: 50px;
+    img {
+        width: 400px;
+        height: 320px;
+        opacity: 0.2;
+    }
+}
