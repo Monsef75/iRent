@@ -79,10 +79,9 @@ module.exports = (app, Users, Properties) => {
         }
         , Update = await Users.updateOne( { '_id': _Id } , { $set: {'Photo': photo } } )
         , User = await Users.findOne( {'_id': _Id} )
-        , { Photo,Name,IsVendor } = User
-        fs.unlinkSync(req.files[0].path)
-        if (Update.modifiedCount == 1) res.send({Update,UserInfo: {Photo,Name,IsVendor}})
-        else res.status(404).send('User not Founded!')
+        , { Photo } = User
+        fs.unlinkSync( req.files[0].path )
+        res.send( {Update,Photo} )
     })
 
     app.get('/AdminPanel/SetUsers', async(req, res) => {
@@ -135,6 +134,12 @@ module.exports = (app, Users, Properties) => {
         res.send( Update )
     })
     app.delete('/AdminPanel/RemoveUser', async(req, res) => {
+        const User = await Users.findOne( {'_id': new ObjectId(req.body.UserId)})
+        if (User.Properties.length != 0) {
+            for (const PropertyId of User.Properties) {
+                await Properties.deleteOne( {'_id': new ObjectId(PropertyId)})
+            }
+        }
         const Delete = await Users.deleteOne( {'_id': new ObjectId(req.body.UserId)})
         res.send( Delete )
     })
@@ -181,7 +186,7 @@ module.exports = (app, Users, Properties) => {
         res.send( Update )
     })
 
-    app.post('/AddProperty', upload.array('Images', 6) , async (req, res) => {
+    app.post('/Vendor_AddProperty', upload.array('Images', 6) , async (req, res) => {
         const {UserId, UserName, ...Other} = req.body
 
         const Images = req.files.map( File => {
@@ -202,41 +207,47 @@ module.exports = (app, Users, Properties) => {
         res.send( {AddOffer,AddVendorProperty} )
     })
     app.get('/Vendor_SetProperties', async (req, res) => {
-        const VendorProperties = req.query.VendorProperties
-        , Properties = []
-        , SetUp = ( Id, Image, Name, Price, IsApproved, IsAdded, Sales ) => { return {
-            Id: Id,
-            Image: Image,
-            Name: Name,
-            Price: Price,
-            IsApproved: IsApproved,
-            IsAdded: IsAdded,
-            Sales: Sales,
-        }}
-        for (const Obj in VendorProperties) {
-            if (VendorProperties[Obj].IsApproved == 'true') {
-                const Document = await Properties.collection( VendorProperties[Obj].Service ).findOne( { '_id': new ObjectId( VendorProperties[Obj].Id ) } )
-                const Property = SetUp( VendorProperties[Obj].Id, Document.Images[0], Document.Info.Name, Document.Info.Price, true, VendorProperties[Obj].IsAdded == 'true', Document.Sales)
-                Properties.push( Property )
-            }
-            else {
-                const Offer = await Offers.findOne( { '_id': new ObjectId( VendorProperties[Obj].Id ) } )
-                const Property = SetUp( VendorProperties[Obj].Id, Offer.Images[0], Offer.Info.Name, Offer.Info.Price, false, VendorProperties[Obj].IsAdded == 'true', VendorProperties[Obj].IsAdded ? Offer.Sales : null)
-                Properties.push( Property )
-            }
+        const Vendor = await Users.findOne({ '_id': new ObjectId(req.query.UserId) })
+        , properties = []
+        for (const Id of Vendor.Properties) {
+            const Document = await Properties.findOne( {'_id': new ObjectId(Id)} )
+            properties.push({
+                Id: Document._id,
+                Info: Document.General,
+                Image: Document.Images[0],
+                IsApproved: Document.IsApproved,
+            })
+
         }
-        res.send(Properties)
+        res.send( properties )
+    })
+    app.get('/SetProperties', async (req, res) => {
+        const Documents = await Properties.find({ 'IsApproved': true }).toArray()
+        , properties = []
+        for (const Document in Documents) {
+            properties.push({
+                Id: Documents[Document]._id,
+                Info: Documents[Document].General,
+                Image: Documents[Document].Images[0],
+            })
+        }
+        res.send( properties )
+    })
+    app.get('/SetDetails', async (req, res) => {
+
+        const Document = await Properties.findOne( {'_id': new ObjectId(req.query.PropertyId)} )
+        , { User, Added_At, IsApproved, ...Property } = Document
+        res.send(Property)
+
     })
     app.get('/AdminPanel/Admin_SetProperties' , async (req, res) => {
-        const { IsApproved, Type, Filters,} = req.query
-        , MatchQuery = { 'IsApproved': IsApproved == 'true' }
+        const { IsApproved, Filters,} = req.query
         , FiltersQuery = {}
-        , AllPropertiesNbr = await Properties.countDocuments( MatchQuery )
+        , MatchQuery = { 'IsApproved': IsApproved == 'true' }
         , Aggregation = [
             { $match: MatchQuery },
         ]
-        // , CountQuery = { 'General.Type': Type }
-        // , PropertiesNbr = await Properties.countDocuments( CountQuery )
+        , PropertiesNbr = await Properties.countDocuments( MatchQuery )
 
         if (Filters) {
             Filters.forEach( Filter => {
@@ -258,13 +269,14 @@ module.exports = (app, Users, Properties) => {
             )
         }
         const Documents = await Properties.aggregate( Aggregation ).toArray()
+
         , properties = Documents.map( Property  => {
             let Name 
             Property.General.Name.length > 18 ? Name = Property.General.Name.toString().slice(0,18) + '...'
             : Name = Property.General.Name
             return {
                 Id       : Property._id,
-                UserName : Property.User.Name,
+                User     : Property.User,
                 Image    : Property.Images[0],
                 Name     : Name,
                 Type     : Property.General.Type,
@@ -273,9 +285,8 @@ module.exports = (app, Users, Properties) => {
                 Added    : Property.Added_At,
             }
         })
-        const Data = {
-            AllPropertiesNbr: AllPropertiesNbr,
-            // PropertiesNbr: PropertiesNbr,
+        , Data = {
+            PropertiesNbr: PropertiesNbr,
             Properties: properties
         }
         res.send( Data )
@@ -284,9 +295,13 @@ module.exports = (app, Users, Properties) => {
         const Update = await Properties.updateOne({ '_id': new ObjectId(req.body.OfferId) }, { $set: { IsApproved: true }})
         res.send(Update)
     })
-    app.delete('RemoveProperty', async (req, res) => {
-        const { Service,Id } = req.body
-        const Delete = await Properties.collection( Service ).deleteOne( {'_id': new ObjectId(Id)})
-        res.send(Delete)
+    app.delete('/RemoveProperty', async (req, res) => {
+        const DeleteProperty = await Properties.deleteOne( {'_id': new ObjectId(req.body.PropertyId) })
+        , DeleteVendorProperty = await Users.updateOne({ '_id': new ObjectId(req.body.UserId) }, { $pull: { 'Properties': new ObjectId(req.body.PropertyId) }})
+        res.send({ DeleteProperty, DeleteVendorProperty})
+    })
+
+    app.get('/Update', async(req, res) => {
+        
     })
 }

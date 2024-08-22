@@ -1,28 +1,28 @@
 <template>
 
-    <main>
+    <main class="pb-5" >
 
-        <article class="position-relative text-start mx-auto p-5">
+        <article class="position-relative text-start mx-auto px-5 py-4" style="height: 200px;">
             <span class="position-absolute SkyBackground w-100 h-100 start-0 bottom-0" ></span>
-            <div class="Text position-relative" >
+            <div class="Text position-relative d-block my-auto" >
                 <h1 class="c-text mb-2 s60 fw-bolder letter-n-1 ">Property Listing</h1>
-                <p class="c-grey s17 fw-bold" >Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit diam justo sed rebum.</p>
+                <p class="c-grey s20 fw-bold" >List your property with us to reach a broad audience and maximize its potential.</p>
             </div>
         </article>
-        <article class="Check d-flex gap-3 zindex-p-1 trans3" :class="{'opacity-0' : GenInfoValid && DescInfoValid && ImagesValid}" >
+        <article class="Check d-flex gap-3 zindex-p-1 trans3" :class="{'opacity-0' : InfoValid && ImagesValid}" >
 
             <div class="Box t-center">
                 <i class="fa-solid position-relative trans3" :class=" ImagesValid ? 'fa-circle-check Valid' : 'fa-image c-red' "></i>
             </div>
             <div class="Box t-center">
-                <i class="fa-solid position-relative trans3" :class=" GenInfoValid && DescInfoValid ? 'fa-circle-check Valid' : 'fa-align-left c-red' "></i>
+                <i class="fa-solid position-relative trans3" :class=" InfoValid ? 'fa-circle-check Valid' : 'fa-align-left c-red' "></i>
             </div>
 
         </article>
 
         <section class="container-xxl mt-5" >
 
-            <div class="Images d-flex flex-wrap gap-3 mb-5">
+            <div class="Images d-flex flex-wrap gap-3">
                 <h2 class="fw-bold letter-n-05 c-text mb-2" style="flex-basis: 100%;" >Images ({{ ImgsLength }}/5)</h2>
                 <div ref="DivPrim" class="Img-Primary col-6 bd-dashed-accent rd-10 position-relative trans3 shadow"
                     :style="{'background-image': `url(${ Imgs.PrimImg })`}" >
@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <form class="Form d-grid gap-4">
+            <form class="Form d-grid gap-4 my-5">
 
                 <div class="General bc-light-accent3 p-4 col-12 d-flex flex-wrap gap-2 rd-10 shadow">
 
@@ -92,6 +92,7 @@
                         <span class="s20 px-3 py-2 pointer trans3" :class="{'text-decoration-line-through c-light-accent2' : !Info.Offers.Waiter}" >Waiter</span>
                         <CheckBox Id="Off4" :Checked="Info.Offers.Waiter" @Emit="Info.Offers.Waiter = !Info.Offers.Waiter"/>
                     </label>
+                    
                 </div>
                 <div class="Discription bc-light-accent3 p-4 d-grid gap-2 rd-10 shadow">
 
@@ -117,20 +118,32 @@
                     </label>
 
                 </div>
+                <div class="Contact p-4 bc-accent rd-10 shadow" >
+
+                    <h2 class="fw-bold letter-n-05 c-white mb-3" >Contact Information</h2>
+                    <label for="Gen1" class="rd-5 pointer bc-background" style="width: calc(50% - .25rem);" >
+                        <input id="Gen1" type="text" class="s20 bc-transparent px-3" placeholder="Owner Name" v-model="Info.Contact.Name" required >
+                        <i class="fa fa-user s20 t-center bd-l-black c-light-accent2 trans3" ></i>
+                    </label>
+                    <label for="Gen2" class="rd-5 pointer bc-background ms-2" style="width: calc(50% - .25rem);" >
+                        <input id="Gen2" type="number" class="s20 bc-transparent px-3" placeholder="Owner Phone Number" v-model="Info.Contact.Phone" required >
+                        <i class="fa fa-phone s20 t-center bd-l-black c-light-accent2 trans3" ></i>
+                    </label>
+
+                </div>
 
             </form>
 
-            <button class="ButtonSpinner2 my-5 bc-primary mx-auto rd-5" style="width: 300px; height: 53.5px;" v-if="Waiting">
+
+            <button class="ButtonSpinner-accent mt-5 bc-primary mx-auto rd-5" style="width: 300px; height: 53.5px;" v-if="Waiting">
                 <span class="Spinner"></span>
             </button>
-            <button class="py-2 my-5 s25 fw-bold d-block mx-auto rd-5" :class="GenInfoValid && DescInfoValid && ImagesValid ? 'ActiveBttn' : 'InactiveBttn'" v-else
-                style="width: 300px;" @click="addProperty" :disabled="!(GenInfoValid && DescInfoValid && ImagesValid)" >
-                
+            <button class="py-2 mt-5 s25 fw-bold d-block mx-auto rd-5" :class="InfoValid && ImagesValid ? 'ActiveBttn' : 'InactiveBttn'" 
+             style="width: 300px;" @click="addProperty" :disabled="!(InfoValid && ImagesValid)" v-else >
                 Submit
             </button>
 
-        </section>
-        
+        </section>        
     </main>
     
 </template>
@@ -148,7 +161,7 @@
                 General: {
                     Name: 'Golden Urban House For Rent',
                     Type: 'Appartment',
-                    Category: 'Rent',
+                    Category: 'Rent3',
                     Location: '123 Street, Oum El Bouaghi',
                     Price: '12,345',
                 },
@@ -163,11 +176,17 @@
                     Adults: 4,
                     Size: 1000,
                     Bed: 3,
-                    Rooms: 3,
+                    Rooms: 33,
                 },
+                Contact: {
+                    Name: 'Monseff',
+                    Phone: '0798940475',
+                },
+
             },
             GenInfoValid : false,
             DescInfoValid : false,
+            CntcInfoValid : false,
 
             PrimImgText: "Browser Image",
             PrimImgRslt: "500x500",
@@ -225,7 +244,7 @@
                 Offer.append( 'UserId' , this.$store.state.User.Id )
                 Offer.append( 'UserName' , this.$store.state.User.Name )
 
-                this.AddProperty( Offer ).then( this.Waiting = false )
+                this.Vendor_AddProperty( Offer ).then( this.Waiting = false )
             },
             AppendInfo(formData, data, parentKey = '') {
                 for (let key in data) {
@@ -249,9 +268,12 @@
                 })
                 return `${formattedDate} : ${formattedTime}`
             },
-            ...mapActions(['AddProperty',]),
+            ...mapActions(['Vendor_AddProperty']),
         },
         computed: {
+            InfoValid() {
+                return this.GenInfoValid && this.DescInfoValid & this.CntcInfoValid
+            },
         },
         watch: {
             Files: {
@@ -276,6 +298,14 @@
                         if (!Vals[Val]) { return this.DescInfoValid = false }                        
                     }
                     return this.DescInfoValid = true
+                },deep: true,
+            },
+            'Info.Contact': {
+                handler( Vals ) {
+                    for (const Val in Vals) {
+                        if (!Vals[Val]) { return this.CntcInfoValid = false }                        
+                    }
+                    return this.CntcInfoValid = true
                 },deep: true,
             },
         },
@@ -371,7 +401,7 @@
                 }
                 input::placeholder, textarea::placeholder {
                     color: var(--Light-Grey2);
-                    font-size: 18px;
+                    font-size: 20px;
                 }
                 input:focus + i, input:valid + i  {
                     color: var(--Accent)
@@ -380,7 +410,7 @@
                     width: 50px;
                 }
             }
-            .General {
+            .General, .Contact {
                 grid-column: span 2;
             }
             .Offers {

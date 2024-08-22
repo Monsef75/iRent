@@ -18,7 +18,7 @@
             <article v-if="IsLoggedIn" >
 
                 <h5 class="c-white letter-p-05 t-center fw-bold mb-3"> Hello ! </h5>
-                <routerLink class="Profile d-flex align-items-center justify-content-between mb-3 p-2 pointer trans3"
+                <routerLink class="Profile d-flex align-items-center justify-content-between p-2 pointer trans3"
                  to="/Profile">
                     <div class="Info d-flex align-items-center gap-2 c-white">
                         <div class="Img me-2">
@@ -28,14 +28,10 @@
                     </div>
                     <i class="fa-solid fa-circle-chevron-right s20 c-light-white trans3"></i>
                 </routerLink>
-                <div class="Line position-relative mb-4">
-                    <span class="position-absolute bc-white w-100"></span>
-                </div>
-                <routerLink to="/AdminPanel" class="mb-1 bc-panel c-primary t-center w-100 s16 fw-bold py-1 d-block trans3" >Admin Panel</routerLink>
-                <div class="Line position-relative">
-                    <span class="position-absolute bc-white w-100"></span>
-                </div>
-                <button class="ActiveBttn my-3 w-100 s16 fw-bold py-1" @click="SignOut()">Log Out</button>
+                <section class="py-2 my-3 bd-t-white bd-b-white" >
+                    <routerLink to="/AdminPanel" class="mb-1 bc-panel c-primary t-center w-100 s16 fw-bold py-1 d-block trans3" >Admin Panel</routerLink>
+                </section>
+                <button class="ActiveBttn w-100 s16 fw-bold py-1" @click="SignOut()">Log Out</button>
 
             </article>
 
@@ -118,6 +114,7 @@
         top: 50px;
         right: -27px;
         .Profile {
+            background-color: rgba(255, 255, 255, 0.25);
             .Img {
                 width: 60px;
                 height: 60px;

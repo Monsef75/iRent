@@ -19,7 +19,7 @@
 
                 <tr class="trans3" v-for="(Offer,Index) in Offers">
                     <th scope="row">{{ Index + 1 }}</th>
-                    <th>{{ Offer.UserName }}</th>
+                    <th>{{ Offer.User.Name }}</th>
                     <th><img :src="GetImage(Offer.Image)" style="width: 45px;height: 45px;border-radius: 5px;"></th>
                     <th>{{ Offer.Name }}</th>
                     <th>{{ Offer.Type }}</th>
@@ -27,7 +27,7 @@
                     <th>{{ Offer.Price }} <i class="s12" >Alf</i> </th>
                     <th>{{ Offer.Added }}</th>
                     <th class="position-relative">
-                        <GearIcon :ItemSettings="ItemSettings" :Waiting="Offer.Waiting"  @setting="(Value) => Settings(Value,Offer.Id,Index)" />
+                        <GearIcon :ItemSettings="ItemSettings" :Waiting="Offer.Waiting"  @setting="(Value) => Settings( Value, Offer.Id, Offer.User.Id, Index )" />
                     </th>
                 </tr>
                 <tr class="Loader trans3" v-for=" in 7" v-show="BoxesLoading">
@@ -80,11 +80,6 @@
                 { Setting: "Show Details"},
                 { Setting: "Delete", ColorRed: true},
             ],
-
-            DeleteOffer: {
-                Id: null,
-                Index: null,
-            },
             InfoValid : false,
 
             PageLoading: true,
@@ -94,15 +89,11 @@
         methods: {
             SetUp( Query ) {
                 this.Admin_SetProperties( Query ).then( res => {
-                    if (res.AllPropertiesNbr == 0) {
-                        this.EmptyPage = true
-                    }
+                    if (res.PropertiesNbr == 0) this.EmptyPage = true
                     else {
-                        res.Properties.forEach( Offer => {
-                            Offer.Waiting = false
-                        })
+                        res.Properties.forEach( Offer => Offer.Waiting = false )
                         this.Offers = res.Properties
-                        this.Info.Value = res.AllPropertiesNbr
+                        this.Info.Value = res.PropertiesNbr
                     }
                     this.PageLoading = false
                     this.BoxesLoading = false
@@ -110,30 +101,6 @@
             },
             GetImage( Image ) {
                 return `data:${Image.fileType};base64,${Image.data}`
-            },
-            Settings( Value,OfferId,Index ) {
-                if ( Value == 'Approve' ) {
-                        this.Admin_ApproveOffer( {OfferId: OfferId} ).then( ()=> {
-                        this.Offers.splice( Index,1 )
-                        --this.Info.Value
-                        if (this.Offers.length == 0) this.EmptyPage = true
-                    })
-                }
-                else {
-                    this.DeleteOffer = {
-                        Id: OfferId,
-                        Index: Index,
-                    }
-                    const WarningInfo = {
-                        Name: 'DeleteOffer',
-                        IsDashboardBox: true,
-                        Confirmation: 'Are you sure you want to Delete the Offer ?',
-                        Text: 'Are you sure you want to Delete the Offer ?',
-                        ButtonText: 'Delete',
-                        ButtonColor: 'bc-red',
-                    }
-                    this.emitter.emit( 'ShowWarningBox',WarningInfo )
-                }
             },
             ApplyFilters( Vals ) {
                 if (Vals.length != 0) {
@@ -147,13 +114,25 @@
                 } 
             },
 
-            AcceptWarning() {
-                this.Offers[this.DeleteOffer.Index].Waiting = true
-                this.RemoveOffer( this.DeleteOffer.Id ).then( ()=> {
-                    this.Offers.splice( this.DeleteOffer.Index,1 )
-                    --this.Info.Value
-                    if (this.Offers.length == 0) this.EmptyPage = true
-                })
+            Settings( Value, OfferId, UserId, Index ) {
+                if ( Value == 'Approve' ) {
+                        this.Admin_ApproveOffer({ OfferId: OfferId }).then( ()=> {
+                        this.Offers.splice( Index,1 )
+                        --this.Info.Value
+                        if (this.Offers.length == 0) this.EmptyPage = true
+                    })
+                }
+                else if ( Value == 'Show Details' ) {
+                    window.open(this.$router.resolve({ path: `/Details/${OfferId}` }).href, '_blank')
+                }
+                else {
+                    this.Offers[Index].Waiting = true
+                    this.RemoveProperty({ PropertyId: OfferId, UserId: UserId }).then( ()=> {
+                        this.Offers.splice( Index,1 )
+                        --this.Info.Value
+                        if (this.Offers.length == 0) this.EmptyPage = true
+                    })
+                }
             },
 
             FormatDate( Date ) {
@@ -169,7 +148,7 @@
                 })
                 return `${formattedDate} : ${formattedTime}`
             },
-            ...mapActions(['Admin_SetProperties', 'Admin_RemoveProperty', 'Admin_ApproveOffer']),
+            ...mapActions(['Admin_SetProperties', 'Admin_ApproveOffer', 'RemoveProperty',]),
         },
         computed: {
             Types() {
@@ -220,9 +199,6 @@
         created() {
             this.SetUp( this.Query )
         },
-        mounted() {
-            this.emitter.on( 'DeleteOffer',() => this.AcceptWarning() )
-        },
     }
 </script>
 
@@ -267,7 +243,7 @@ tr:hover {
     color: var(--Light-white2);
 }
 tr:not(.Loader):hover {
-    background-color: rgb(65, 68, 81,0.7);
+    background-color: rgba(65, 68, 81, 0.7);
     color: var(--Light-white2);
 }
 tr.Loader {

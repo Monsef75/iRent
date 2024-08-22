@@ -1,8 +1,8 @@
 <template>
     
-    <main>
+    <main class="p-4" >
 
-        <header class="d-flex gap-2 mx-auto w-fit py-5" >
+        <header class="d-flex gap-2 mx-auto w-fit pb-5" >
             <div class="Box py-3 pointer trans3" v-for="(Type, Index) in PropertyTypes" :class="{'Active' : Type.Active }" @click="TypeSlected(Index)">
                 <div class="text-center">
                     <div class="rounded">
@@ -15,7 +15,7 @@
             </div>
         </header>
 
-        <Properties class="container-xxl mb-5" />
+        <Properties :Properties="Properties"  class="container-xxl mb-5" />
 
     </main>
     
@@ -24,7 +24,8 @@
 <script>
     
     import Properties from '@/components/CustomerUI/Properties/Properties.vue'
-    
+    import { mapActions } from 'vuex'
+
     export default {
     
         components: {Properties,},
@@ -37,18 +38,20 @@
                 { Name: 'Building',  Img: '/src/assets/Imgs/CustomerUI/Home/icon-building.png',  Active: false,},
                 { Name: 'Garage',    Img: '/src/assets/Imgs/CustomerUI/Home/icon-luxury.png',    Active: false,},
             ],
+            Properties: [],
         }},
         methods: {
             TypeSlected( Index ) {
                 this.PropertyTypes.forEach( Type => Type.Active = false )
                 this.PropertyTypes[Index].Active = true
-            }
+            },
+            ...mapActions(['SetProperties']),
         },
-        computed: {
-            
-        },
-        watch: {
-            
+        created() {
+            this.SetProperties().then( res => {
+                console.log(res)
+                this.Properties = res
+            })
         },
     }
     

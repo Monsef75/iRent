@@ -28,7 +28,7 @@ const router = createRouter({
       component: Explore
     },
     {
-        path: '/Details',
+        path: '/Details/:PropertyId',
         name: 'Details',
         component: Details
     },

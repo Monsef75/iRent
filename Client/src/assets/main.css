@@ -105,8 +105,8 @@ body {
 .SkyBackground {
     background-image: url(/src/assets/Imgs/CustomerUI/Common/Sky.jpg);
     background-size: 100%;
-    background-position-y: -50%;
-    background-attachment: fixed;
+    background-position-y: 100%;
+    /* background-attachment: fixed; */
 }
 .ImgBackGround::before {
     position: absolute;
@@ -261,6 +261,7 @@ body {
 
 .EmptyPage {
     padding: 50px;
+    padding-top: 0;
     img {
         width: 400px;
         height: 320px;

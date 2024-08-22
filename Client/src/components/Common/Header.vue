@@ -12,16 +12,16 @@
 
             <ul class="d-flex gap-1 bd-r-white pe-4" >
                 <li class="fw-bold letter-n-05 pointer" >
-                    <router-link to="/" class="px-3 c-light-white trans3 Active" > Home </router-link> 
+                    <router-link to="/" class="px-3 c-light-white trans3" :class="{'Active': Routers[0].Active}"  > Home </router-link> 
                 </li>
                 <li class="fw-bold letter-n-05 pointer" >
-                    <router-link to="/Explore" class="px-3 c-light-white trans3" > Explore </router-link> 
+                    <router-link to="/Explore" class="px-3 c-light-white trans3" :class="{'Active': Routers[1].Active}"  > Explore </router-link> 
                 </li>
                 <li class="fw-bold letter-n-05 pointer" >
-                    <router-link to="/List" class="px-3 c-light-white trans3" > List Your Property </router-link>
+                    <router-link :to="IsLoggedIn ? '/List' : '/Membership/Sign-In'" class="px-3 c-light-white trans3" :class="{'Active': Routers[2].Active}"  > List Your Property </router-link>
                 </li>
-                <li class="fw-bold letter-n-05 pointer" >
-                    <router-link to="/Profile" class="px-3 c-light-white trans3" > Profile </router-link> 
+                <li class="fw-bold letter-n-05 pointer" v-show="IsLoggedIn" >
+                    <router-link to="/Profile" class="px-3 c-light-white trans3" :class="{'Active': Routers[3].Active}" > Profile </router-link> 
                 </li>
             </ul>
             <Favorites  @CloseOpnedBoxes="Favorites()"  :BoxStatus="FavoritesBoxStatus"/>
@@ -36,18 +36,21 @@
 
     import Favorites from '/src/components/CustomerUI/Header/Favorites.vue'
     import Account from '/src/components/CustomerUI/Header/Account.vue'
+    import { mapGetters } from 'vuex'
 
     export default {
         components: { Account,Favorites },
         data() { return {
             AccountBoxStatus: true,
             FavoritesBoxStatus: true,
+            Routers: [
+                { Name: 'Home',    Active: true },
+                { Name: 'Explore', Active: false },
+                { Name: 'List',    Active: false },
+                { Name: 'Profile', Active: false },
+            ],
         }},
         methods: {
-            Catagories() {
-                this.FavoritesBoxStatus = true
-                this.AccountBoxStatus = true
-            },
             Favorites() {
                 this.FavoritesBoxStatus = false
                 this.AccountBoxStatus = true
@@ -59,14 +62,19 @@
         },
         computed: {
             Dashboard() {
-                if (this.$route.name == 'AdminPanel') {
-                    return true
-                }
-                else {
-                    return false
-                }
-            }
+                if (this.$route.name == 'AdminPanel') return true
+                else return false
+            },
+            ...mapGetters(['IsLoggedIn',]),
         },
+        watch: {
+            $route(Val) {
+                this.Routers.forEach( Router => Router.Active = false )
+                this.Routers.forEach( Router => {
+                    if (Router.Name == Val.name) return Router.Active = true
+                })
+            },
+        }
     }
 </script> 
 

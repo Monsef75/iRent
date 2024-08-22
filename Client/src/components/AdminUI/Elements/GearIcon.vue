@@ -1,7 +1,7 @@
 <template>
 
     <section>
-        <div class="ButtonSpinner2" v-if="Waiting">
+        <div class="ButtonSpinner-primary" v-if="Waiting">
             <div class="Spinner"></div>
         </div>
         <div class="Icon mx-auto dropstart w-fit" v-else>

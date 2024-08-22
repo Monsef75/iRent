@@ -51,7 +51,7 @@
 
                 </fieldset>
 
-                <button class="ButtonSpinner2 mx-auto bc-primary rd-5" style="width: 154px;height: 37px;" v-if="Waiting">
+                <button class="ButtonSpinner-accent mx-auto bc-primary rd-5" style="width: 154px;height: 37px;" v-if="Waiting">
                     <span class="Spinner"></span>
                 </button>
                 <button type="submit" class="py-2 px-5 mb-1 rd-5 letter-p-05 w-600 s14 trans3 d-block mx-auto" v-else

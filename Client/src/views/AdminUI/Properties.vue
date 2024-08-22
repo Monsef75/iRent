@@ -2,16 +2,16 @@
 
     <div class="Clothes px-4 bc-light-panel overflow-hidden">
 
-        <Title :Title="ServiceName" v-if="EmptyCategory"/>
-        <Title :Title="ServiceName" :Types="PropertyCategories" @TypeSelected="TypeSelected" v-else/>
+        <Title :Title="ServiceName" v-if="EmptyPage"/>
+        <Title :Title="ServiceName" v-else/>
         
         <span class="SpinnerLoader position-fixed" v-if="PageLoading" ></span>
 
-        <div class="EmptyPage f-center gap-5" v-else-if="EmptyCategory || NoProperties">
+        <div class="EmptyPage f-center gap-5" v-else-if="EmptyPage || NoProperties">
             <img src="/src/assets/Imgs/AdminUI/Common/Docs.png" alt="">
             <div>
                 <p class="c-light-white2 fw-bold lh-sm letter-p-1 mb-5" style="font-size: 50px;">
-                    Oops .. There Are No {{ EmptyCategory ? ServiceName : Query.Type }} Right Now !
+                    Oops .. There Are No {{ EmptyPage ? ServiceName : Query.Type }} Right Now !
                 </p>
             </div>
         </div>
@@ -20,21 +20,19 @@
 
             <Info :Info="Info"/>
             <Filters :Filters="Filters" @ApplyFilters="ApplyFilters" :ClearFilters="ClearFilters"/>
-            <Info :Info="ScndInfo" :ShowSearch="true"/>
             <Table :THead="THead" #Slot>
 
                 <tr class="trans3" v-for="(Property,Index) in Properties">
                     <th scope="row">{{ Index + 1 }}</th>
                     <th>{{ Property.User.Name }}</th>
-                    <th><img :src="Property.Image" style="width: 45px;height: 45px;border-radius: 5px;"></th>
+                    <th><img :src="GetImage(Property.Image)" style="width: 45px;height: 45px;border-radius: 5px;"></th>
                     <th>{{ Property.Name }}</th>
                     <th>{{ Property.Type }}</th>
                     <th>{{ Property.Category }}</th>
-                    <th>{{ Property.Location }}</th>
                     <th>{{ Property.Price }} <i class="s11">Dz</i> </th>
                     <th>{{ Property.Added }}</th>
                     <th class="position-relative">
-                        <GearIcon :ItemSettings="ItemSettings" :Waiting="Property.Waiting" @setting="(Value) => Settings(Value,Product.Id,Index)" />
+                        <GearIcon :ItemSettings="ItemSettings" :Waiting="Property.Waiting" @setting="(Value) => Settings( Value, Property.Id, Property.User.Id, Index )" />
                     </th>
                 </tr>
                 <tr class="Loader trans3" v-for=" in 6" v-show="BoxesLoading">
@@ -66,9 +64,6 @@
         components: {Title,Filters,Table,GearIcon,Info,},
         data() { return {
             ServiceName: 'Properties',
-            PropertyCategories: [
-                "For Sale","For Rent"
-            ],
 
             Info: {
                 Name: 'All Properties',
@@ -84,12 +79,12 @@
             ],
             ClearFilters: false,
             Query: {
-                Category: 'Sale',
+                IsApproved: true,
                 Filters: null,
             },
 
             THead: [
-                "#","Vendor","Property Image","Name","Type","Category","Location","Price","Added","Process"
+                "#","Vendor","Property Image","Name","Type","Category","Price","Added","Process"
             ],
             Properties: [],
             ItemSettings: [
@@ -97,40 +92,27 @@
                 { Setting: "Delete", ColorRed: true },
             ],
 
-            DeleteProperty: null,
-
-            PageLoading: false,
+            PageLoading: true,
             BoxesLoading: false,
-            EmptyCategory: false,
+            EmptyPage: false,
             NoProperties: false,
         }},
         methods: {
             SetUp( Query ) {
                 this.Admin_SetProperties( Query ).then( res => {
-                    if ( res.Info.AllPropertiesNbr == 0 ) this.EmptyCategory = true
-                    else if ( res.Info.PropertiesNbr == 0 ) this.NoProperties = true
+                    if ( res.PropertiesNbr == 0 ) this.EmptyPage = true
                     else {
-                        res.Properties.forEach( Product => {
-                            Product.Waiting = false
-                        })
+                        res.Properties.forEach( Product => Product.Waiting = false )
                         this.NoProperties = false
-                        this.Info.Value = res.Info.AllPropertiesNbr
-                        this.ScndInfo.Value = res.Info.PropertiesNbr
+                        this.Info.Value = res.PropertiesNbr
                         this.Properties = res.Properties
                     }
                     this.BoxesLoading = false
-                    this.Loading = false
+                    this.PageLoading = false
                 })
             },
-            TypeSelected( Value ) {
-                this.NoProperties ? this.PageLoading = true : this.BoxesLoading = true
-                this.Query.Type = Value.slice(4)
-                this.ScndInfo.Name = Value.slice(4) + ' Properties'
-                this.ScndInfo.Value = '#'
-                this.Query.Filters = null
-                this.ClearFilters = true
-                this.Properties = []
-                this.SetUp( this.Query )
+            GetImage( Image ) {
+                return `data:${Image.fileType};base64,${Image.data}`
             },
             ApplyFilters( Vals ) {
                 if (Vals.length != 0) {
@@ -143,48 +125,22 @@
                     this.SetUp( this.Query )
                 } 
             },
-            Settings( Value,ProductId,Index ) {
-                if (Value == 'Edit') {
-                    const Params = {
-                        For: this.ServiceName,
-                        Id: ProductId
-                    }
-                    this.emitter.emit( 'UpdateProduct',Params )  //Home.vue
+
+            Settings( Value, PropertyId, UserId, Index ) {
+                if ( Value == 'Show Details' ) {
+                    window.open(this.$router.resolve({ path: `/Details/${PropertyId}` }).href, '_blank')
                 }
                 else {
-                    this.DeleteProduct = {
-                        Id: ProductId,
-                        Index: Index,
-                    }
-                    const WarningInfo = {
-                        Name: 'DeleteClothes',
-                        IsDashboardBox: true,
-                        Confirmation: 'Are you sure you want to Delete the Product ?',
-                        Text: 'Are you sure you want to Delete the Product ?',
-                        ButtonText: 'Delete',
-                        ButtonColor: 'bc-red',
-                    }
-                    this.emitter.emit( 'ShowWarningBox',WarningInfo )
+                    this.Properties[Index].Waiting = true
+                    this.RemoveProperty({ PropertyId: PropertyId, UserId: UserId }).then( ()=> {
+                        this.Properties.splice( Index,1 )
+                        --this.Info.Value
+                        if (this.Properties.length == 0) this.EmptyPage = true
+                    })
 
                 }
             },
-            ShowAddPage() {
-                this.emitter.emit( 'UpdateProduct' ) // Home.vue
-            },
-            AcceptWarning() {
-                this.Products[this.DeleteProduct.Index].Waiting = true
-                const Params = {
-                    Service: this.ServiceName,
-                    Id: this.DeleteProduct.Id,
-                }
-                this.RemoveProduct(Params).then( ()=> {
-                    this.Products.splice(this.DeleteProduct.Index, 1)
-                    this.ViewWarningBox = false
-                    --this.ScndInfo.Value
-                    --this.Info.Value
-                })
-            },
-            ...mapActions(['Admin_SetProperties','Admin_RemoveProperty']),
+            ...mapActions(['Admin_SetProperties', 'RemoveProperty']),
         },
         watch: {
             'ScndInfo.Value'(Val) {
@@ -194,10 +150,7 @@
             },
         },
         created() {
-            // this.SetUp( this.Query )
-        },
-        mounted() {
-            this.emitter.on( 'DeleteClothes',() => this.AcceptWarning() )
+            this.SetUp( this.Query )
         },
     }
 </script>

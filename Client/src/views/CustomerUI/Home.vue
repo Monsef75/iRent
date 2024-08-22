@@ -9,9 +9,8 @@
                     <h1 class="display-5 animated fadeIn mb-4 fw-bold letter-n-1">
                         Find A <span class="c-accent fw-bold letter-p-1 fw-bolder">Perfect Home</span> To Live With Your Family
                     </h1>
-                    <p class="animated fadeIn mb-4 pb-2 fst-italic s20 fw-light">
-                        Vero elitr justo clita lorem. Ipsum dolor at sed stet
-                        sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.
+                    <p class="animated fadeIn mb-5 pb-2 fst-italic s20 fst-italic">
+                        Discover the ideal place to call home where your family can live in comfort and style, creating lasting memories together.
                     </p>
                     <router-link to="/Membership/Sign-Up" class="Bttn ActiveBttn fw-bold s20 py-3 px-5 me-3 animated fadeIn">
                         Get Started
@@ -68,7 +67,7 @@
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="mb-3 s50 fw-bold letter-n-1">Property Types</h1>
-                    <p class="c-light-grey" >Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+                    <p class="c-light-grey" >Explore a variety of property types, from cozy homes to luxurious estates, catering to every lifestyle.</p>
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s" v-for="Type in PropertyTypes" >
@@ -98,11 +97,11 @@
                         </div>
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                        <h1 class="mb-4 c-text fw-bold letter-n-1">#1 Place To Find The Perfect Property</h1>
-                        <p class="mb-4 c-grey">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                        <p class="c-grey mb-3" ><i class="fa fa-check s18 me-3"></i>Tempor erat elitr rebum at clita</p>
-                        <p class="c-grey mb-3" ><i class="fa fa-check s18 me-3"></i>Aliqu diam amet diam et eos</p>
-                        <p class="c-grey mb-5" ><i class="fa fa-check s18 me-3"></i>Clita duo justo magna dolore erat amet</p>
+                        <h1 class="mb-4 s50 c-text fw-bold letter-n-1">#1 Place To Find The Perfect Property</h1>
+                        <p class="mb-4 c-grey s18">Discover the ideal place to find the perfect property. Whether you're seeking a cozy home or a luxurious estate, we have options to suit every need.</p>
+                        <p class="c-grey s17 fw-bold mb-3" ><i class="fa fa-check s20 me-3"></i>Modern Amenities</p>
+                        <p class="c-grey s17 fw-bold mb-3" ><i class="fa fa-check s20 me-3"></i>Spacious Layouts</p>
+                        <p class="c-grey s17 fw-bold mb-5" ><i class="fa fa-check s20 me-3"></i>Prime Locations</p>
                         <a class="Bttn ActiveBttn py-3 px-5" href="">Read More</a>
                     </div>
                 </div>
@@ -118,7 +117,7 @@
                     <div class="col-lg-6">
                         <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
                             <h1 class="mb-3 s50 fw-bold letter-n-1">Property Listing</h1>
-                            <p class="c-light-grey" >Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit diam justo sed rebum.</p>
+                            <p class="c-light-grey s20" >Browse our comprehensive property listing to find your ideal home with detailed descriptions and features.</p>
                         </div>
                     </div>
                     <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
@@ -138,7 +137,7 @@
                 <div class="tab-content">
                     <div id="tab-1" class="tab-pane fade show p-0 active">
                         <div class="row g-5">
-                            <Properties data-wow-delay="0.1s" />
+                            <Properties :Properties="Properties" data-wow-delay="0.1s" />
                             <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
                                 <router-link to="/Explore" class="Bttn ActiveBttn py-3 px-5">Browse More Property</router-link>
                             </div>
@@ -146,7 +145,7 @@
                     </div>
                     <div id="tab-2" class="tab-pane fade show p-0">
                         <div class="row g-5">
-                            <Properties data-wow-delay="0.1s" />
+                            <Properties :Properties="Properties" data-wow-delay="0.1s" />
                             <div class="col-12 text-center">
                                 <router-link to="/Explore" class="btn btn-primary py-3 px-5">Browse More Property</router-link>
                             </div>
@@ -154,7 +153,7 @@
                     </div>
                     <div id="tab-3" class="tab-pane fade show p-0">
                         <div class="row g-5">
-                            <Properties data-wow-delay="0.1s" />
+                            <Properties :Properties="Properties" data-wow-delay="0.1s" />
                             <div class="col-12 text-center">
                                 <router-link to="/Explore" class="btn btn-primary py-3 px-5">Browse More Property</router-link>
                             </div>
@@ -178,7 +177,7 @@
                             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                                 <div class="mb-4">
                                     <h1 class="mb-3 s50 fw-bold letter-n-1">Contact With Our Certified Agent</h1>
-                                    <p class="c-light-grey" >Eirmod sed ipsum dolor sit rebum magna erat. Tempor lorem kasd vero ipsum sit sit diam justo sed vero dolor duo.</p>
+                                    <p class="c-light-grey" >Reach out to our certified agent for personalized assistance and expert advice. We'll help you find the perfect property tailored to your needs.</p>
                                 </div>
                                 <button class="Bttn ActiveBttn py-3 px-4 me-2"><i class="fa fa-phone-alt me-2"></i>Make A Call</button>
                                 <button class="Bttn bc-grey c-white py-3 px-4"><i class="fa fa-calendar-alt me-2"></i>Get Appoinment</button>
@@ -239,9 +238,9 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Newsletter</h5>
-                        <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                        <p>Subscribe to our newsletter for the latest property updates.</p>
                         <div class="position-relative mx-auto mt-4" style="max-width: 400px;">
-                            <input class="bg-transparent c-white bd-white w-100 py-3 ps-4 pe-5 rd-5" type="text" placeholder="Your email">
+                            <input class="bg-transparent c-white bd-white w-100 py-3 ps-4 pe-5 rd-5" type="text" value="Your email">
                             <button type="button" class="Bttn ActiveBttn py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
                         </div>
                     </div>
@@ -259,6 +258,7 @@
 <script>
         
     import Properties from '@/components/CustomerUI/Properties/Properties.vue'
+    import { mapActions } from 'vuex'
 
     export default {
     
@@ -274,15 +274,15 @@
                 { Name: 'Shop',      Img: '/src/assets/Imgs/CustomerUI/Home/icon-condominium.png', Value: '123 Properties',},
                 { Name: 'Garage',    Img: '/src/assets/Imgs/CustomerUI/Home/icon-luxury.png', Value: '123 Properties',},
             ],
+            Properties: [],
         }},
         methods: {
-            
+            ...mapActions(['SetProperties']),
         },
-        computed: {
-            
-        },
-        watch: {
-            
+        created() {
+            this.SetProperties().then( res => {
+                this.Properties = res
+            })
         },
     }
     

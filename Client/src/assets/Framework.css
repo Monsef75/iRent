@@ -389,6 +389,9 @@
     border-top: 1px solid white
 }
 
+.bd-b-white {
+    border-bottom: 1px solid white
+}
 .bd-b-light-grey {
     border-bottom: 1px solid var(--Light-Grey);
 }
@@ -476,6 +479,9 @@
 .h-100vh {
     height: 100vh;
 }
+.h-75vh {
+    height: 75vh;
+}
 .center {
     left: 50%;
     top: 50%;
@@ -543,7 +549,7 @@
 
 /* 
  <div class="Loader f-center" v-if="Loading">
-    <span class="SimpleSpinner" ></span>
+    <span class="Spinner2" ></span>
 </div>  
 */
 
@@ -563,7 +569,7 @@
 </button> 
 */
 
-.ButtonSpinner2 {
+.ButtonSpinner-accent {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -574,6 +580,21 @@
         border-radius: 50%;
         background: radial-gradient( farthest-side, var(--Accent) 94%, #0000) top/9px 9px no-repeat,
             conic-gradient(#0000 30%, var(--Accent));
+        -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 5px),#000 0);
+        animation: SpinnerLoader2 1s infinite linear;
+    }
+}
+.ButtonSpinner-primary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default !important;
+    .Spinner {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: radial-gradient( farthest-side, var(--Primary) 94%, #0000) top/9px 9px no-repeat,
+            conic-gradient(#0000 30%, var(--Primary));
         -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 5px),#000 0);
         animation: SpinnerLoader2 1s infinite linear;
     }
