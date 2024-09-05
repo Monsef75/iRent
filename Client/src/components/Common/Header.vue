@@ -5,7 +5,7 @@
         <div class="Logo">
             <router-link to="/" class="d-flex align-items-center gap-1" >
                 <img class="LogoShape" src="/src/assets/Imgs/CustomerUI/Common/LogoShape.png" alt="">
-                <span class="s25 c-white fw-bolder fst-italic letter-n-1" >Rent</span>
+                <span class="s25 c-white fw-bolder fst-italic letter-n-1" >iRent</span>
             </router-link>
         </div>
         <div class="QuickAccess gap-4" :class=" Dashboard ? 'd-none' : 'd-flex align-items-center' ">
