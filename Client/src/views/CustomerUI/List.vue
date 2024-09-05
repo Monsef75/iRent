@@ -159,11 +159,11 @@
         data() { return {
             Info: {
                 General: {
-                    Name: 'Golden Urban House For Rent',
-                    Type: 'Appartment',
-                    Category: 'Rent3',
-                    Location: '123 Street, Oum El Bouaghi',
-                    Price: '12,345',
+                    Name: null,
+                    Type: null,
+                    Category: null,
+                    Location: null,
+                    Price: null,
                 },
                 Offers: {
                     AirConditioner: true,
@@ -172,15 +172,15 @@
                     Waiter: false,
                 },
                 Description: {
-                    Description: 'Beautifull Golden Urban House For Rent in Oum El Bouaghi Offers multiple comfortable Features',
-                    Adults: 4,
-                    Size: 1000,
-                    Bed: 3,
-                    Rooms: 33,
+                    Description: null,
+                    Adults: null,
+                    Size: null,
+                    Bed: null,
+                    Rooms: null,
                 },
                 Contact: {
-                    Name: 'Monseff',
-                    Phone: '0798940475',
+                    Name: null,
+                    Phone: null,
                 },
 
             },
