@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongodb')
 , multer = require('multer')
-, bcrypt = require('bcrypt')
+, bcrypt = require('bcryptjs')
 , jwt = require('jsonwebtoken')
 , fs = require('fs')
 , { error } = require('console')
