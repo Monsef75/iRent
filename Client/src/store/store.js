@@ -1,6 +1,9 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import router from '@/router/router.js'
+// VUE_APP_Facebook_App_Id: '922479025807225',
+// VUE_APP_Facebook_App_Secret: '99a969281f19f1cfeb817029cf7e9714',
+const END_POINT = 'http://localhost:3000'
 
 const store = createStore({
     
@@ -97,7 +100,7 @@ const store = createStore({
         
         SignUpAuthentification( context,User ) {                     // v/SignUpForm.vue
             return new Promise((resolve, reject) => {
-                axios.get(Env.END_POINT + '/Membership/SignUpAuthentification' , { params: User })
+                axios.get(END_POINT + '/Membership/SignUpAuthentification' , { params: User })
                 .then( () => {
                     resolve()
                 })
@@ -108,7 +111,7 @@ const store = createStore({
         },
         SignUp( context,User ) {                                     // v/SignUpForm.vue 
             return new Promise((resolve, reject) => { 
-                axios.post(Env.END_POINT + '/Membership/SignUp' , User)
+                axios.post(END_POINT + '/Membership/SignUp' , User)
                 .then( res => {
                     context.commit( 'SetUser',res.data )
                     context.commit( 'SetSuccessCard',{Text: 'Signed Up Successfully',To: '/'} )
@@ -121,7 +124,7 @@ const store = createStore({
         },
         SignIn( context,User ) {                                     // c/SignIn.vue
             return new Promise((resolve, reject) => { 
-                axios.get(Env.END_POINT + '/Membership/SignIn' , { params: { User: User } } )
+                axios.get(END_POINT + '/Membership/SignIn' , { params: { User: User } } )
                 .then( res => {     
                     context.commit( 'SetUser',res.data )
                     context.commit( 'SetSuccessCard',{Text: 'Signed In Successfully',To: '/'} )
@@ -137,7 +140,7 @@ const store = createStore({
                 const Item = localStorage.getItem('User')
                 if (Item) {
                     const User = JSON.parse(Item)
-                    axios.get(Env.END_POINT + '/UserAuthentification' , { params: { Token: User.Token } } )
+                    axios.get(END_POINT + '/UserAuthentification' , { params: { Token: User.Token } } )
                     .then( res => {
                         context.commit( 'StaySignedIn',User )
                         resolve(User.UserInfo._id)
@@ -154,7 +157,7 @@ const store = createStore({
         },
         UpdateUser( context,User ) {                                 // v/Profile.vue
             return new Promise((resolve, reject) => {
-                axios.post(Env.END_POINT + '/UpdateUser' , User , {headers: { 'Content-Type': 'multipart/form-data' }} )
+                axios.post(END_POINT + '/UpdateUser' , User , {headers: { 'Content-Type': 'multipart/form-data' }} )
                 .then( res => {
                     console.log(res.data.Update)
                     context.commit( 'UpdateUser',res.data.Photo)
@@ -170,7 +173,7 @@ const store = createStore({
 
         Admin_SetUsers( context,Query ) {                            // v/Users.vue
             return new Promise((resolve, reject) => { 
-                axios.get(Env.END_POINT + '/AdminPanel/SetUsers' , { params: Query })
+                axios.get(END_POINT + '/AdminPanel/SetUsers' , { params: Query })
                 .then( res => {
                     resolve(res.data)
                 })
@@ -181,7 +184,7 @@ const store = createStore({
         },
         Admin_AdministerUser( context,UserId ) {                     // v/Users.vue
             return new Promise((resolve, reject) => {
-                axios.patch(Env.END_POINT + '/AdminPanel/AdministerUser' , { UserId: UserId })
+                axios.patch(END_POINT + '/AdminPanel/AdministerUser' , { UserId: UserId })
                 .then( res => {
                     console.log(res.data)
                     context.commit( 'SetSuccessCard',{Text: 'User is Administered',To: null} )
@@ -194,7 +197,7 @@ const store = createStore({
         },
         Admin_RemoveUser( context,UserId ) {                         // v/Users.vue
             return new Promise((resolve, reject) => {
-                axios.delete(Env.END_POINT + '/AdminPanel/RemoveUser' , {data: {UserId: UserId} })
+                axios.delete(END_POINT + '/AdminPanel/RemoveUser' , {data: {UserId: UserId} })
                 .then( res => {
                     console.log(res.data)
                     context.commit( 'SetSuccessCard',{Text: 'User is Deleted',To: null} )
@@ -207,7 +210,7 @@ const store = createStore({
         },
         Admin_SetAdmins( context,Query ) {                           // v/Users.vue
             return new Promise((resolve, reject) => { 
-                axios.get(Env.END_POINT + '/AdminPanel/SetAdmins' , { params: Query })
+                axios.get(END_POINT + '/AdminPanel/SetAdmins' , { params: Query })
                 .then( res => {
                     resolve(res.data)
                 })
@@ -218,7 +221,7 @@ const store = createStore({
         },
         Admin_RevokeAdmin( context,AdminId ) {                       // v/Users.vue
             return new Promise((resolve, reject) => {
-                axios.patch(Env.END_POINT + '/AdminPanel/RevokeAdmin', { AdminId: AdminId })
+                axios.patch(END_POINT + '/AdminPanel/RevokeAdmin', { AdminId: AdminId })
                 .then( res => {
                     console.log(res.data)
                     context.commit( 'SetSuccessCard',{Text: 'Admin is Revoked',To: null} )
@@ -231,7 +234,7 @@ const store = createStore({
         },
         Admin_RemoveAdmin( context,AdminId ) {                       // v/Users.vue
             return new Promise((resolve, reject) => {
-                axios.delete(Env.END_POINT + '/AdminPanel/RemoveAdmin' , {data: {AdminId: AdminId} })
+                axios.delete(END_POINT + '/AdminPanel/RemoveAdmin' , {data: {AdminId: AdminId} })
                 .then( res => {
                     console.log(res.data)
                     context.commit( 'SetSuccessCard',{Text: 'Admin is Deleted',To: null} )
@@ -245,7 +248,7 @@ const store = createStore({
 
         Vendor_AddProperty( context,Offer ) {                        // v/List.vue
             return new Promise((resolve, reject) => { 
-                axios.post(Env.END_POINT + '/Vendor_AddProperty' , Offer , {headers: { 'Content-Type': 'multipart/form-data' }})
+                axios.post(END_POINT + '/Vendor_AddProperty' , Offer , {headers: { 'Content-Type': 'multipart/form-data' }})
                 .then( res => {
                     context.commit( 'SetSuccessCard',{ Text: 'Sent For Process', To: null })
                     // '/Profile'
@@ -257,7 +260,7 @@ const store = createStore({
         },
         Vendor_SetProperties( context,UserId ) {                     // v/Profile.vue
             return new Promise((resolve, reject) => { 
-                axios.get(Env.END_POINT + '/Vendor_SetProperties' , { params: UserId })
+                axios.get(END_POINT + '/Vendor_SetProperties' , { params: UserId })
                 .then( res => {
                     resolve(res.data)
                 })
@@ -266,7 +269,7 @@ const store = createStore({
         },
         SetProperties( context ) {                                   // v/Home.vue + v//Explore.vue
             return new Promise((resolve, reject) => { 
-                axios.get(Env.END_POINT + '/SetProperties')
+                axios.get(END_POINT + '/SetProperties')
                 .then( res => {
                     resolve(res.data)
                 })
@@ -275,7 +278,7 @@ const store = createStore({
         },
         SetDetails( context,PropertyId ) {                           // v/Profile.vue
             return new Promise((resolve, reject) => { 
-                axios.get(Env.END_POINT + '/SetDetails' , { params: PropertyId })
+                axios.get(END_POINT + '/SetDetails' , { params: PropertyId })
                 .then( res => {
                     console.log(res.data)
                     resolve(res.data)
@@ -285,7 +288,7 @@ const store = createStore({
         },
         Vendor_RemoveProperty( context,Ids ) {                       // v/Profile.vue
             return new Promise((resolve, reject) => {
-                axios.delete(Env.END_POINT + '/Vendor_RemoveProperty' , {data: Ids })
+                axios.delete(END_POINT + '/Vendor_RemoveProperty' , {data: Ids })
                 .then( res => {
                     console.log(res.data)
                     context.commit( 'RemoveVendorProperty',res.data.VendorPropertyId )
@@ -297,7 +300,7 @@ const store = createStore({
         },
         Admin_SetProperties( context,Query ) {                       // v/Offers + v/Properties
             return new Promise((resolve, reject) => { 
-                axios.get(Env.END_POINT + '/AdminPanel/Admin_SetProperties' , { params: Query })
+                axios.get(END_POINT + '/AdminPanel/Admin_SetProperties' , { params: Query })
                 .then( res => {
                     resolve(res.data)
                 })
@@ -306,7 +309,7 @@ const store = createStore({
         },
         Admin_ApproveOffer( context,OfferId ) {                      // v/Offers.vue
             return new Promise((resolve, reject) => { 
-                axios.post(Env.END_POINT + '/AdminPanel/ApproveOffer', OfferId)
+                axios.post(END_POINT + '/AdminPanel/ApproveOffer', OfferId)
                 .then( res => {
                     console.log(res.data)
                     context.commit( 'SetSuccessCard',{Text: 'Offer is Approved',To: null} )
@@ -319,7 +322,7 @@ const store = createStore({
         },
         RemoveProperty( context,Ids ) {                              // v/Offers + v/Properties
             return new Promise((resolve, reject) => {
-                axios.delete(Env.END_POINT + '/RemoveProperty' , {data: Ids })
+                axios.delete(END_POINT + '/RemoveProperty' , {data: Ids })
                 .then( res => {
                     console.log(res.data)
                     context.commit( 'SetSuccessCard',{Text: 'Property is Deleted',To: null} )
@@ -332,7 +335,7 @@ const store = createStore({
         Update( context ) {
             // <button class="py-2 px-5 bc-accent" @click="Update" >Update</button>
             return new Promise((resolve, reject) => {
-                axios.get(Env.END_POINT + '/Update' )
+                axios.get(END_POINT + '/Update' )
                 .then( res => {
                     console.log(res.data)
                     context.commit( 'SetSuccessCard',{Text: 'Updated',To: null} )
