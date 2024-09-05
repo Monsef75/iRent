@@ -20,7 +20,9 @@
 
             <Info :Info="Info"/>
             <Filters :Filters="Filters" @ApplyFilters="ApplyFilters" :ClearFilters="ClearFilters"/>
-            <Table :THead="THead" #Slot>
+
+            <span class="SpinnerLoader position-fixed mt-5" style="width: 48px; height: 48px;"  v-if="BoxesLoading" ></span>
+            <Table :THead="THead" #Slot v-else >
 
                 <tr class="trans3" v-for="(Property,Index) in Properties">
                     <th scope="row">{{ Index + 1 }}</th>
@@ -35,14 +37,9 @@
                         <GearIcon :ItemSettings="ItemSettings" :Waiting="Property.Waiting" @setting="(Value) => Settings( Value, Property.Id, Property.User.Id, Index )" />
                     </th>
                 </tr>
-                <tr class="Loader trans3" v-for=" in 6" v-show="BoxesLoading">
-                    <th></th>
-                    <th> <span class="Image d-block" ></span> </th>
-                    <th colspan="4" > <span class="Text d-block" ></span> </th>
-                    <th colspan="3" > <span class="Text d-block" ></span> </th>
-                </tr>
                 
             </Table>
+            
 
         </div>
     
@@ -73,9 +70,9 @@
             },
 
             Filters: [
-                {Type: 'Info.Stock',  Name: "Sort By Category",    Option1: "For Rent",          Option2: "For Sell" },
+                // {Type: 'General.Category',  Name: "Sort By Category",    Option1: "For Rent",          Option2: "For Sell" },
                 {Type: 'Added_At',    Name: "Sort By Added date",  Option1: "Newest Properties", Option2: "Oldest Properties" },
-                {Type: 'Info.Profit', Name: "Sort By Price",       Option1: "Highest Price",     Option2: "Lowest Price" },
+                {Type: 'General.Price', Name: "Sort By Price",       Option1: "Highest Price",     Option2: "Lowest Price" },
             ],
             ClearFilters: false,
             Query: {
@@ -117,11 +114,8 @@
             ApplyFilters( Vals ) {
                 if (Vals.length != 0) {
                     this.Query.Filters = Vals
-                    this.Products = []
-                    this.Query.Limits = 11
-                    this.Query.Skip = 0
-                    this.ProductsData.Loader = true
-                    this.ProductsData.HasMore = true
+                    this.Properties = []
+                    this.BoxesLoading = true
                     this.SetUp( this.Query )
                 } 
             },

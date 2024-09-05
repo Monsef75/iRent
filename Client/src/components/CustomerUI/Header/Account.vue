@@ -28,10 +28,10 @@
                     </div>
                     <i class="fa-solid fa-circle-chevron-right s20 c-light-white trans3"></i>
                 </routerLink>
-                <section class="py-2 my-3 bd-t-white bd-b-white" >
+                <section class="py-2 mt-3 bd-t-white bd-b-white" v-if="User.IsAdmin">
                     <routerLink to="/AdminPanel" class="mb-1 bc-panel c-primary t-center w-100 s16 fw-bold py-1 d-block trans3" >Admin Panel</routerLink>
                 </section>
-                <button class="ActiveBttn w-100 s16 fw-bold py-1" @click="SignOut()">Log Out</button>
+                <button class="ActiveBttn mt-3 w-100 s16 fw-bold py-1" @click="SignOut()">Log Out</button>
 
             </article>
 

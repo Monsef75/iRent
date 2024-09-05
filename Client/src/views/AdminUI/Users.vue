@@ -10,7 +10,9 @@
 
             <Info :Info="Info"/>
             <Filters :Filters="Filters" @ApplyFilters="ApplyFilters" :ClearFilters="ClearFilters"/>
-            <Table :THead="THead" #Slot>
+
+            <span class="SpinnerLoader position-fixed mt-5" style="width: 48px; height: 48px;" v-if="BoxesLoading" ></span>
+            <Table :THead="THead" #Slot v-else >
 
                 <tr class="trans3" v-for="(User,Index) in Users">
                     <th scope="row">{{ Index + 1 }}</th>
@@ -22,11 +24,6 @@
                     <th class="position-relative">
                         <GearIcon :ItemSettings="ItemSettings" :Waiting="User.Waiting" @setting="(Value) => Settings(Value,User.Id,Index)" />
                     </th>
-                </tr>
-                <tr class="Loader trans3" v-for=" in 6" v-show="BoxesLoading">
-                    <th></th>
-                    <th> <span class="Image d-block" ></span> </th>
-                    <th colspan="2" > <span class="Text d-block" ></span> </th>
                 </tr>
 
             </Table>
@@ -92,10 +89,7 @@
                 if (Vals.length != 0) {
                     this.Query.Filters = Vals
                     this.Users = []
-                    this.Query.Limits = 16
-                    this.Query.Skip = 0
-                    this.UsersData.Loader = true
-                    this.UsersData.HasMore = true
+                    this.BoxesLoading = true
                     this.SetUp( this.Query )
                 } 
             },
@@ -105,12 +99,9 @@
             },
             
             TypeSelected( Value ) {
-                this.ScndInfo.Name = Value
                 this.Query.Type = Value
-                this.ScndInfo.Value = '#'
                 this.Query.Filters = null
                 this.BoxesLoading = true
-                this.ClearFilters = true
                 this.Users = []
                 this.SetUp( this.Query )
             },

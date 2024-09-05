@@ -124,14 +124,12 @@ const store = createStore({
                 axios.get(Env.END_POINT + '/Membership/SignIn' , { params: { User: User } } )
                 .then( res => {     
                     context.commit( 'SetUser',res.data )
+                    context.commit( 'SetSuccessCard',{Text: 'Signed In Successfully',To: '/'} )
                     resolve()
                 })
                 .catch( err => {
                     reject(err.response.data)
                 })
-                .finally(
-                    context.commit( 'SetSuccessCard',{Text: 'Signed In Successfully',To: '/'} )
-                )
             })
         },
         StaySignedIn( context ) {                                    // App.vue

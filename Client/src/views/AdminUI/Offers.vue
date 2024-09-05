@@ -15,7 +15,9 @@
 
             <Info :Info="Info"/>
             <Filters :Filters="Filters" @ApplyFilters="ApplyFilters"/>
-            <Table :THead="THead" #Slot>
+
+            <span class="SpinnerLoader position-fixed mt-5" style="width: 48px; height: 48px;"  v-if="BoxesLoading" ></span>
+            <Table :THead="THead" #Slot v-else >
 
                 <tr class="trans3" v-for="(Offer,Index) in Offers">
                     <th scope="row">{{ Index + 1 }}</th>
@@ -29,11 +31,6 @@
                     <th class="position-relative">
                         <GearIcon :ItemSettings="ItemSettings" :Waiting="Offer.Waiting"  @setting="(Value) => Settings( Value, Offer.Id, Offer.User.Id, Index )" />
                     </th>
-                </tr>
-                <tr class="Loader trans3" v-for=" in 7" v-show="BoxesLoading">
-                    <th></th>
-                    <th colspan="5" > <span class="Text d-block" ></span> </th>
-                    <th colspan="2" > <span class="Text d-block" ></span> </th>
                 </tr>
                 
             </Table>
@@ -62,8 +59,8 @@
             },
 
             Filters: [
-                {Type: 'Info.Price',  Name: "Sort By Offer Price",     Option1: "Highest Price", Option2: "Lowest Price" },
-                {Type: 'Offred_At',   Name: "Sort By Offer Date",      Option1: "Newest",        Option2: "Oldest" },
+                {Type: 'General.Price',  Name: "Sort By Offer Price",     Option1: "Highest Price", Option2: "Lowest Price" },
+                {Type: 'Added_At',   Name: "Sort By Offer Date",      Option1: "Newest",        Option2: "Oldest" },
             ],
             Query: {
                 IsApproved: false,
@@ -106,10 +103,7 @@
                 if (Vals.length != 0) {
                     this.Query.Filters = Vals
                     this.Offers = []
-                    this.Query.Limits = 16
-                    this.Query.Skip = 0
-                    this.OffersData.Loader = true
-                    this.OffersData.HasMore = true
+                    this.BoxesLoading = true
                     this.SetUp( this.Query )
                 } 
             },

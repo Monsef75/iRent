@@ -115,7 +115,6 @@
                 })
                 .catch( err => {
                     this.Waiting = false
-                    console.log(err)
                     this.ServerHasErrors = true
                     this.Values = err
                     if (err.Type == 'Email') this.EmailErrors[2].IsFixed = false

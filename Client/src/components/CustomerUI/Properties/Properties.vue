@@ -28,9 +28,9 @@
 
             </div>
             <div class="d-flex border-top fw-light mt-3" v-else >
-                <small class="c-accent flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined c-accent me-2"></i>{{ Property.Size }} Sqft</small>
-                <small class="c-accent flex-fill text-center border-end py-2"><i class="fa fa-bed c-accent me-2"></i>{{ Property.Bed }} Bed</small>
-                <small class="c-accent flex-fill text-center py-2"><i class="fa fa-bath c-accent me-2"></i>{{ Property.Bath }} Bath</small>
+                <small class="c-accent flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined c-accent me-2"></i>{{ Property.Info.Size + ' m' }}</small>
+                <small class="c-accent flex-fill text-center border-end py-2"><i class="fa fa-bed c-accent me-2"></i>{{ Property.Info.Bed + ' Beds' }}</small>
+                <small class="c-accent flex-fill text-center py-2"><i class="fa fa-door-closed c-accent me-2"></i>{{ Property.Info.Rooms + ' Rooms' }}</small>
             </div>
         </div>
         

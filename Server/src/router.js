@@ -97,8 +97,7 @@ module.exports = (app, Users, Properties) => {
         if (Filters) {
             Filters.forEach( Filter => {
                 Filter.Type == 'Joined_In' ? FiltersQuery['Converted_Joined_In'] = +Filter.OptionSelected
-                : Filter.Type == 'Properties' ? FiltersQuery['Converted_Properties'] = +Filter.OptionSelected
-                : FiltersQuery[`${Filter.Type}`] = +Filter.OptionSelected
+                : FiltersQuery['Converted_Properties'] = +Filter.OptionSelected
             })
             Aggregation.unshift(
                 { $addFields: {
@@ -227,7 +226,7 @@ module.exports = (app, Users, Properties) => {
         for (const Document in Documents) {
             properties.push({
                 Id: Documents[Document]._id,
-                Info: Documents[Document].General,
+                Info: { ...Documents[Document].General, ...Documents[Document].Description },
                 Image: Documents[Document].Images[0],
             })
         }
@@ -243,8 +242,8 @@ module.exports = (app, Users, Properties) => {
     app.get('/AdminPanel/Admin_SetProperties' , async (req, res) => {
         const { IsApproved, Filters,} = req.query
         , FiltersQuery = {}
-        , MatchQuery = { 'IsApproved': IsApproved == 'true' }
-        , Aggregation = [
+        let MatchQuery = { 'IsApproved': IsApproved == 'true' }       
+        const Aggregation = [
             { $match: MatchQuery },
         ]
         , PropertiesNbr = await Properties.countDocuments( MatchQuery )
@@ -254,19 +253,21 @@ module.exports = (app, Users, Properties) => {
                 Filter.Type == 'Added_At' ? FiltersQuery['Converted_Added_At'] = +Filter.OptionSelected
                 : FiltersQuery[`${Filter.Type}`] = +Filter.OptionSelected
             })
-            Aggregation.unshift(
-                { $addFields: {
-                    Converted_Added_At: {
-                        $dateFromString: {
-                            dateString: '$Added_At',
-                            format: '%d/%m/%Y : %H:%M',
-                            timezone: 'UTC'
-                        }
-                    }                    
-                }},
-                { $sort: FiltersQuery },
-                { $project: { Converted_Added_At: 0 } }
-            )
+            if (Object.keys(FiltersQuery).length != 0) {
+                Aggregation.unshift(
+                    { $addFields: {
+                        Converted_Added_At: {
+                            $dateFromString: {
+                                dateString: '$Added_At',
+                                format: '%d/%m/%Y : %H:%M',
+                                timezone: 'UTC'
+                            }
+                        }                    
+                    }},
+                    { $sort: FiltersQuery },
+                    { $project: { Converted_Added_At: 0 } }
+                )
+            }
         }
         const Documents = await Properties.aggregate( Aggregation ).toArray()
 

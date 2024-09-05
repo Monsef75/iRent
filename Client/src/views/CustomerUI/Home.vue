@@ -54,7 +54,9 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <button class="Bttn ActiveBttn border-0 w-100 py-3">Search</button>
+                        <button class="Bttn ActiveBttn border-0 w-100 py-3">
+                            <a href="#Properties" class="c-text" >Search</a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -102,7 +104,7 @@
                         <p class="c-grey s17 fw-bold mb-3" ><i class="fa fa-check s20 me-3"></i>Modern Amenities</p>
                         <p class="c-grey s17 fw-bold mb-3" ><i class="fa fa-check s20 me-3"></i>Spacious Layouts</p>
                         <p class="c-grey s17 fw-bold mb-5" ><i class="fa fa-check s20 me-3"></i>Prime Locations</p>
-                        <a class="Bttn ActiveBttn py-3 px-5" href="">Read More</a>
+                        <a class="Bttn ActiveBttn py-3 px-5" href="#Properties">Read More</a>
                     </div>
                 </div>
             </div>
@@ -111,8 +113,8 @@
 
 
         <!-- Property List Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
+        <div class="container-xxl py-5" id="Properties" >
+            <div class="container"  >
                 <div class="row g-0 gx-5 align-items-end">
                     <div class="col-lg-6">
                         <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
