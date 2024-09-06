@@ -22,7 +22,7 @@
             <div class="Content" :class="{'ProductsBox bd-b-grey1 my-3' : !EmptyCart}" v-show="!Loading" >
 
                 <div class="NoItems pt-3" v-show="EmptyCart">
-                    <p class="c-light-white pb-1 s25 fw-bold t-center mb-4">No Products Added In The Favorites Right Now!</p>
+                    <p class="c-light-white pb-1 s25 fw-bold t-center mb-4">No Properties Added In The Favorites Right Now!</p>
                     <img class="d-block mx-auto" src="/src/assets/Imgs/CustomerUI/Header/Favorites.png" alt="">
                 </div>
                 <div class="Products p-3 rd-10" v-show="!EmptyCart">
