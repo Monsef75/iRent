@@ -41,6 +41,7 @@
     import Filters from '/src/components/AdminUI/Elements/Filters.vue'
     import Table from '/src/components/AdminUI/Elements/Table.vue'
     import GearIcon from '/src/components/AdminUI/Elements/GearIcon.vue'
+    import Avatar from '@/assets/Imgs/Common/Avatar.png'
     import { mapActions } from 'vuex'
 
     export default {
@@ -95,7 +96,7 @@
             },
             GetImage( Photo ) {
                 if (Photo) return `data:${Photo.fileType};base64,${Photo.data}`
-                else return '/src/assets/Imgs/Common/Avatar.png'
+                else return Avatar
             },
             
             TypeSelected( Value ) {

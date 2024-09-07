@@ -260,7 +260,6 @@
 <script>
         
     import Properties from '@/components/CustomerUI/Properties/Properties.vue'
-    import { mapActions } from 'vuex'
     import Apartment from '@/assets/Imgs/CustomerUI/Home/icon-apartment.png';
     import Villa from '@/assets/Imgs/CustomerUI/Home/icon-villa.png';
     import Home from '@/assets/Imgs/CustomerUI/Home/icon-house.png';
@@ -269,6 +268,7 @@
     import Townhouse from '@/assets/Imgs/CustomerUI/Home/icon-neighborhood.png';
     import Shop from '@/assets/Imgs/CustomerUI/Home/icon-condominium.png';
     import Garage from '@/assets/Imgs/CustomerUI/Home/icon-luxury.png';
+    import { mapActions } from 'vuex'
 
     export default {
     

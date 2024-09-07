@@ -57,6 +57,7 @@
 <script>
 
     import CloseIcon from '/src/components/CustomerUI/Elements/CloseIcon.vue'
+    import Avatar from '@/assets/Imgs/Common/Avatar.png'
     import { mapState  } from 'vuex'
 
     export default {
@@ -68,7 +69,7 @@
         methods: {
             GetImage( Photo ) {
                 if (Photo) return `data:${Photo.fileType};base64,${Photo.data}`
-                else return '/src/assets/Imgs/Common/Avatar.png'
+                else return Avatar
             },
             HideBoxes() {
                 if (this.HideBox) {

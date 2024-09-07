@@ -36,6 +36,7 @@
 <script>
     
     import Properties from '@/components/CustomerUI/Properties/Properties.vue'
+    import Avatar from '@/assets/Imgs/Common/Avatar.png'
     import { mapActions,mapGetters } from 'vuex'
 
     export default {
@@ -58,7 +59,7 @@
             },
             GetImage( Photo ) {
                 if (Photo) return `data:${Photo.fileType};base64,${Photo.data}`
-                else return '/src/assets/Imgs/Common/Avatar.png'
+                else return Avatar
             },
             EditPhoto( Event ) {
                 this.PhotoFile = Event.target.files[0]
