@@ -76,7 +76,7 @@
                         <div class="cat-item d-block text-center rounded p-3">
                             <div class="rounded p-4 bc-Light-grey3">
                                 <div class="icon mb-3">
-                                    <img class="img-fluid" :src="Type.Img" alt="Icon">
+                                    <img class="img-fluid" :src="`/src/assets/Imgs/CustomerUI/Home/icon-${Type.Img}.png`" alt="Icon">
                                 </div>
                                 <h6 class="c-text fw- s20 mb-2"  >{{ Type.Name }}</h6>
                                 <span class="c-grey w-400 s15"  >{{ Type.Value }}</span>
@@ -267,14 +267,14 @@
         components: {Properties,},
         data() { return {
             PropertyTypes: [
-                { Name: 'Apartment', Img: require('@/assets/Imgs/CustomerUI/Home/icon-apartment.png'), Value: '123 Properties',},
-                { Name: 'Villa',     Img: require('@/assets/Imgs/CustomerUI/Home/icon-villa.png'), Value: '123 Properties',},
-                { Name: 'Home',      Img: require('@/assets/Imgs/CustomerUI/Home/icon-house.png'), Value: '123 Properties',},
-                { Name: 'Office',    Img: require('@/assets/Imgs/CustomerUI/Home/icon-housing.png'), Value: '123 Properties',},
-                { Name: 'Building',  Img: require('@/assets/Imgs/CustomerUI/Home/icon-building.png'), Value: '123 Properties',},
-                { Name: 'Townhouse', Img: require('@/assets/Imgs/CustomerUI/Home/icon-neighborhood.png'), Value: '123 Properties',},
-                { Name: 'Shop',      Img: require('@/assets/Imgs/CustomerUI/Home/icon-condominium.png'), Value: '123 Properties',},
-                { Name: 'Garage',    Img: require('@/assets/Imgs/CustomerUI/Home/icon-luxury.png'), Value: '123 Properties',},
+                { Name: 'Apartment', Img: 'apartment', Value: '123 Properties',},
+                { Name: 'Villa',     Img: 'villa', Value: '123 Properties',},
+                { Name: 'Home',      Img: 'house', Value: '123 Properties',},
+                { Name: 'Office',    Img: 'housing', Value: '123 Properties',},
+                { Name: 'Building',  Img: 'building', Value: '123 Properties',},
+                { Name: 'Townhouse', Img: 'neighborhood', Value: '123 Properties',},
+                { Name: 'Shop',      Img: 'condominium', Value: '123 Properties',},
+                { Name: 'Garage',    Img: 'luxury', Value: '123 Properties',},
             ],
             Properties: [],
         }},

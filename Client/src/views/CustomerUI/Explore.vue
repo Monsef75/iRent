@@ -7,7 +7,7 @@
                 <div class="text-center">
                     <div class="rounded">
                         <div class="icon mb-3">
-                            <img class="img-fluid" :src="Type.Img" alt="Icon">
+                            <img class="img-fluid" :src="`/src/assets/Imgs/CustomerUI/Home/icon-${Type.Img}.png`" alt="Icon">
                         </div>
                         <h6 class="c-text s18 fw-bold letter-p-05"  >{{ Type.Name }}</h6>
                     </div>
@@ -31,12 +31,12 @@
         components: {Properties,},
         data() { return {
             PropertyTypes: [
-                { Name: 'Apartment', Img: '', Active: true,},
-                { Name: 'Villa',     Img: '', Active: true,},
-                { Name: 'Home',      Img: '', Active: true,},
-                { Name: 'Office',    Img: '', Active: true,},
-                { Name: 'Building',  Img: '', Active: true,},
-                { Name: 'Garage',    Img: '', Active: true,},
+                { Name: 'Apartment', Img: 'apartment', Active: true,},
+                { Name: 'Villa',     Img: 'villa', Active: true,},
+                { Name: 'Home',      Img: 'house', Active: true,},
+                { Name: 'Office',    Img: 'housing', Active: true,},
+                { Name: 'Building',  Img: 'building', Active: true,},
+                { Name: 'Garage',    Img: 'luxury', Active: true,},
             ],
             Properties: [],
         }},
@@ -51,11 +51,6 @@
             this.SetProperties().then( res => {
                 this.Properties = res
             })
-            const Types = ['apartment','villa','house','housing','building','luxury',]
-            this.PropertyTypes = this.PropertyTypes.map( (Property, Index) => ({
-                ...Property,
-                Img: `/src/assets/Imgs/CustomerUI/Home/icon-${Types[Index]}.png`,
-            }))
         },
     }
     
