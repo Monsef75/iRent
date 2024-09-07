@@ -31,12 +31,12 @@
         components: {Properties,},
         data() { return {
             PropertyTypes: [
-                { Name: 'Apartment', Img: '/src/assets/Imgs/CustomerUI/Home/icon-apartment.png', Active: true,},
-                { Name: 'Villa',     Img: '/src/assets/Imgs/CustomerUI/Home/icon-villa.png',     Active: false,},
-                { Name: 'Home',      Img: '/src/assets/Imgs/CustomerUI/Home/icon-house.png',     Active: false,},
-                { Name: 'Office',    Img: '/src/assets/Imgs/CustomerUI/Home/icon-housing.png',   Active: false,},
-                { Name: 'Building',  Img: '/src/assets/Imgs/CustomerUI/Home/icon-building.png',  Active: false,},
-                { Name: 'Garage',    Img: '/src/assets/Imgs/CustomerUI/Home/icon-luxury.png',    Active: false,},
+                { Name: 'Apartment', Img: '', Active: true,},
+                { Name: 'Villa',     Img: '', Active: true,},
+                { Name: 'Home',      Img: '', Active: true,},
+                { Name: 'Office',    Img: '', Active: true,},
+                { Name: 'Building',  Img: '', Active: true,},
+                { Name: 'Garage',    Img: '', Active: true,},
             ],
             Properties: [],
         }},
@@ -49,9 +49,13 @@
         },
         created() {
             this.SetProperties().then( res => {
-                console.log(res)
                 this.Properties = res
             })
+            const Types = ['apartment','villa','house','housing','building','luxury',]
+            this.PropertyTypes = this.PropertyTypes.map( (Property, Index) => ({
+                ...Property,
+                Img: `/src/assets/Imgs/CustomerUI/Home/icon-${Types[Index]}.png`,
+            }))
         },
     }
     

@@ -64,15 +64,15 @@
         <!-- Search End -->
 
 
-        <!-- Category Start -->
+        <!-- Property Types Start -->
         <div class="container-xxl py-5">
             <div class="container">
-                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <div class="text-center mx-auto mb-5" style="max-width: 600px;">
                     <h1 class="mb-3 s50 fw-bold letter-n-1">Property Types</h1>
                     <p class="c-light-grey" >Explore a variety of property types, from cozy homes to luxurious estates, catering to every lifestyle.</p>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s" v-for="Type in PropertyTypes" >
+                    <div class="col-lg-3 col-sm-6" v-for="Type in PropertyTypes" >
                         <div class="cat-item d-block text-center rounded p-3">
                             <div class="rounded p-4 bc-Light-grey3">
                                 <div class="icon mb-3">
@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-        <!-- Category End -->
+        <!-- Property Types End -->
 
 
         <!-- About Start -->
@@ -267,14 +267,14 @@
         components: {Properties,},
         data() { return {
             PropertyTypes: [
-                { Name: 'Apartment', Img: '/src/assets/Imgs/CustomerUI/Home/icon-apartment.png', Value: '123 Properties',},
-                { Name: 'Villa',     Img: '/src/assets/Imgs/CustomerUI/Home/icon-villa.png', Value: '123 Properties',},
-                { Name: 'Home',      Img: '/src/assets/Imgs/CustomerUI/Home/icon-house.png', Value: '123 Properties',},
-                { Name: 'Office',    Img: '/src/assets/Imgs/CustomerUI/Home/icon-housing.png', Value: '123 Properties',},
-                { Name: 'Building',  Img: '/src/assets/Imgs/CustomerUI/Home/icon-building.png', Value: '123 Properties',},
-                { Name: 'Townhouse', Img: '/src/assets/Imgs/CustomerUI/Home/icon-neighborhood.png', Value: '123 Properties',},
-                { Name: 'Shop',      Img: '/src/assets/Imgs/CustomerUI/Home/icon-condominium.png', Value: '123 Properties',},
-                { Name: 'Garage',    Img: '/src/assets/Imgs/CustomerUI/Home/icon-luxury.png', Value: '123 Properties',},
+                { Name: 'Apartment', Img: require('@/assets/Imgs/CustomerUI/Home/icon-apartment.png'), Value: '123 Properties',},
+                { Name: 'Villa',     Img: require('@/assets/Imgs/CustomerUI/Home/icon-villa.png'), Value: '123 Properties',},
+                { Name: 'Home',      Img: require('@/assets/Imgs/CustomerUI/Home/icon-house.png'), Value: '123 Properties',},
+                { Name: 'Office',    Img: require('@/assets/Imgs/CustomerUI/Home/icon-housing.png'), Value: '123 Properties',},
+                { Name: 'Building',  Img: require('@/assets/Imgs/CustomerUI/Home/icon-building.png'), Value: '123 Properties',},
+                { Name: 'Townhouse', Img: require('@/assets/Imgs/CustomerUI/Home/icon-neighborhood.png'), Value: '123 Properties',},
+                { Name: 'Shop',      Img: require('@/assets/Imgs/CustomerUI/Home/icon-condominium.png'), Value: '123 Properties',},
+                { Name: 'Garage',    Img: require('@/assets/Imgs/CustomerUI/Home/icon-luxury.png'), Value: '123 Properties',},
             ],
             Properties: [],
         }},
