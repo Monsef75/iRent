@@ -76,7 +76,7 @@
                         <div class="cat-item d-block text-center rounded p-3">
                             <div class="rounded p-4 bc-Light-grey3">
                                 <div class="icon mb-3">
-                                    <img class="img-fluid" :src="`/assets/Imgs/CustomerUI/Home/icon-${Type.Img}.png`" alt="Icon">
+                                    <img class="img-fluid" :src="Type.Img" alt="Icon">
                                 </div>
                                 <h6 class="c-text fw- s20 mb-2"  >{{ Type.Name }}</h6>
                                 <span class="c-grey w-400 s15"  >{{ Type.Value }}</span>
@@ -261,20 +261,28 @@
         
     import Properties from '@/components/CustomerUI/Properties/Properties.vue'
     import { mapActions } from 'vuex'
+    import Apartment from '@/assets/Imgs/CustomerUI/Home/icon-apartment.png';
+    import Villa from '@/assets/Imgs/CustomerUI/Home/icon-villa.png';
+    import Home from '@/assets/Imgs/CustomerUI/Home/icon-house.png';
+    import Office from '@/assets/Imgs/CustomerUI/Home/icon-housing.png';
+    import Building from '@/assets/Imgs/CustomerUI/Home/icon-building.png';
+    import Townhouse from '@/assets/Imgs/CustomerUI/Home/icon-neighborhood.png';
+    import Shop from '@/assets/Imgs/CustomerUI/Home/icon-condominium.png';
+    import Garage from '@/assets/Imgs/CustomerUI/Home/icon-luxury.png';
 
     export default {
     
         components: {Properties,},
         data() { return {
             PropertyTypes: [
-                { Name: 'Apartment', Img: 'apartment', Value: '123 Properties',},
-                { Name: 'Villa',     Img: 'villa', Value: '123 Properties',},
-                { Name: 'Home',      Img: 'house', Value: '123 Properties',},
-                { Name: 'Office',    Img: 'housing', Value: '123 Properties',},
-                { Name: 'Building',  Img: 'building', Value: '123 Properties',},
-                { Name: 'Townhouse', Img: 'neighborhood', Value: '123 Properties',},
-                { Name: 'Shop',      Img: 'condominium', Value: '123 Properties',},
-                { Name: 'Garage',    Img: 'luxury', Value: '123 Properties',},
+                { Name: 'Apartment', Img: Apartment, Value: '123 Properties',},
+                { Name: 'Villa',     Img: Villa,     Value: '123 Properties',},
+                { Name: 'Home',      Img: Home,      Value: '123 Properties',},
+                { Name: 'Office',    Img: Office,    Value: '123 Properties',},
+                { Name: 'Building',  Img: Building,  Value: '123 Properties',},
+                { Name: 'Townhouse', Img: Townhouse, Value: '123 Properties',},
+                { Name: 'Shop',      Img: Shop,      Value: '123 Properties',},
+                { Name: 'Garage',    Img: Garage,    Value: '123 Properties',},
             ],
             Properties: [],
         }},
