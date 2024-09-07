@@ -38,11 +38,11 @@
         data() { return {
             PropertyTypes: [
                 { Name: 'Apartment', Img: Apartment, Active: true,},
-                { Name: 'Villa',     Img: Villa,     Active: true,},
-                { Name: 'Home',      Img: Home,      Active: true,},
-                { Name: 'Office',    Img: Office,    Active: true,},
-                { Name: 'Building',  Img: Building,  Active: true,},
-                { Name: 'Garage',    Img: Garage,    Active: true,},
+                { Name: 'Villa',     Img: Villa,     Active: false,},
+                { Name: 'Home',      Img: Home,      Active: false,},
+                { Name: 'Office',    Img: Office,    Active: false,},
+                { Name: 'Building',  Img: Building,  Active: false,},
+                { Name: 'Garage',    Img: Garage,    Active: false,},
             ],
             Properties: [],
         }},
