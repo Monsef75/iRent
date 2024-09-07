@@ -76,7 +76,7 @@
                         <div class="cat-item d-block text-center rounded p-3">
                             <div class="rounded p-4 bc-Light-grey3">
                                 <div class="icon mb-3">
-                                    <img class="img-fluid" :src="`/src/assets/Imgs/CustomerUI/Home/icon-${Type.Img}.png`" alt="Icon">
+                                    <img class="img-fluid" :src="`/assets/Imgs/CustomerUI/Home/icon-${Type.Img}.png`" alt="Icon">
                                 </div>
                                 <h6 class="c-text fw- s20 mb-2"  >{{ Type.Name }}</h6>
                                 <span class="c-grey w-400 s15"  >{{ Type.Value }}</span>
