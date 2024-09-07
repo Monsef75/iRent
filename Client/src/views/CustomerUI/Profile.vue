@@ -4,7 +4,7 @@
 
     
         <article class="UserInfo d-flex align-items-center gap-4 w-fit mx-auto px-4 pb-4 mb-4 bd-b-light-grey">
-            <label class="Img position-relative pointer d-block" for="InpImg">
+            <label class="Img position-relative pointer d-block overflow-hidden" for="InpImg">
                 <img :src="NewPhoto ? NewPhoto : GetImage($store.state.User.Photo)" alt="">
                 <!-- User.Photo -->
                 <i class="fa-solid fa-camera-rotate s30 c-bold-grey position-absolute center opacity-0 trans3"></i>
