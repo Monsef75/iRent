@@ -4,6 +4,7 @@ import router from '@/router/router.js'
 // VUE_APP_Facebook_App_Id: '922479025807225',
 // VUE_APP_Facebook_App_Secret: '99a969281f19f1cfeb817029cf7e9714',
 const END_POINT = 'https://irent-6b4p.onrender.com'
+// const END_POINT = 'http://localhost:3000'
 
 const store = createStore({
     
@@ -250,8 +251,7 @@ const store = createStore({
             return new Promise((resolve, reject) => { 
                 axios.post(END_POINT + '/Vendor_AddProperty' , Offer , {headers: { 'Content-Type': 'multipart/form-data' }})
                 .then( res => {
-                    context.commit( 'SetSuccessCard',{ Text: 'Sent For Process', To: null })
-                    // '/Profile'
+                    context.commit( 'SetSuccessCard',{ Text: 'Sent For Process', To: '/Profile' })
                     console.log(res.data)
                     resolve()
                 })

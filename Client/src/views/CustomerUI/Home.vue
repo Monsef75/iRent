@@ -38,24 +38,24 @@
                             <div class="col-md-4">
                                 <select class="form-select border-0 py-3">
                                     <option selected>Property Type</option>
-                                    <option value="1">Property Type 1</option>
-                                    <option value="2">Property Type 2</option>
-                                    <option value="3">Property Type 3</option>
+                                    <option value="1">Apartment</option>
+                                    <option value="2">Villa</option>
+                                    <option value="3">Garage</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <select class="form-select border-0 py-3">
                                     <option selected>Location</option>
-                                    <option value="1">Location 1</option>
-                                    <option value="2">Location 2</option>
-                                    <option value="3">Location 3</option>
+                                    <option value="1">Oum El Bouaghi</option>
+                                    <option value="2">Bejaia</option>
+                                    <option value="3">Khenchela</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <button class="Bttn ActiveBttn border-0 w-100 py-3">
-                            <a href="#Properties" class="c-text" >Search</a>
+                            <router-link to="/Explore" class="c-text" >Search</router-link>
                         </button>
                     </div>
                 </div>
@@ -213,7 +213,7 @@
                         <router-link to="/" class="btn btn-link text-white-50"> Home </router-link>
                         <router-link to="/Explore" class="btn btn-link text-white-50"> Explore </router-link>
                         <router-link to="/List" class="btn btn-link text-white-50"> List Your Property </router-link>
-                        <router-link to="/Profile" class="btn btn-link text-white-50"> Profile </router-link>
+                        <router-link to="/Profile" class="btn btn-link text-white-50" v-show="IsLoggedIn" > Profile </router-link>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Photo Gallery</h5>
@@ -268,7 +268,7 @@
     import Townhouse from '@/assets/Imgs/CustomerUI/Home/icon-neighborhood.png';
     import Shop from '@/assets/Imgs/CustomerUI/Home/icon-condominium.png';
     import Garage from '@/assets/Imgs/CustomerUI/Home/icon-luxury.png';
-    import { mapActions } from 'vuex'
+    import { mapGetters ,mapActions } from 'vuex'
 
     export default {
     
@@ -288,6 +288,9 @@
         }},
         methods: {
             ...mapActions(['SetProperties']),
+        },
+        computed: {
+            ...mapGetters(['IsLoggedIn',]),
         },
         created() {
             this.SetProperties().then( res => {

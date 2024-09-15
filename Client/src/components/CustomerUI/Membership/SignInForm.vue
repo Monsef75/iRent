@@ -36,11 +36,11 @@
                 </fieldset>
                 <div class="Buttons d-flex align-items-center justify-content-between mt-3">
 
-                    <button class="ButtonSpinner-accent bc-primary rd-5" style="width: 157.6px;height: 40px;" v-if="Waiting">
+                    <button class="ButtonSpinner-accent bc-primary rd-5" style="width: 157.6px;height: 40px;" v-show="Waiting">
                         <span class="Spinner"></span>
                     </button>
                     <button type="submit" class="py-2 px-5 rd-5 letter-p-05 w-400 s17 trans3 w-600" :class="FormValidation ? 'ActiveBttn' : 'InactiveBttn'"
-                      @click.prevent="signIn" :disabled="!FormValidation" v-else >
+                      @click.prevent="signIn" :disabled="!FormValidation" v-show="!Waiting" >
                         SING IN
                     </button>
                     <input type="button" value="Forgot password?" class="s14 c-light-grey bc-transparent letter-p-05 text-decoration-underline trans2" />
@@ -90,7 +90,7 @@
         methods: {
             signIn() {
                 this.Waiting = true
-                this.SignIn( this.User ).then( this.Waiting = false )
+                this.SignIn( this.User ).then( ()=> this.Waiting = false )
                 .catch( err => this.ServerError = err)
             },
             ...mapActions(['SignIn',]),

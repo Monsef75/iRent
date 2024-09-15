@@ -244,7 +244,7 @@
                 Offer.append( 'UserId' , this.$store.state.User.Id )
                 Offer.append( 'UserName' , this.$store.state.User.Name )
 
-                this.Vendor_AddProperty( Offer ).then( this.Waiting = false )
+                this.Vendor_AddProperty( Offer ).then( ()=> this.Waiting = false )
             },
             AppendInfo(formData, data, parentKey = '') {
                 for (let key in data) {
