@@ -70,7 +70,7 @@ module.exports = (app, Users, Properties) => {
         })
     })
 
-    app.post('/UpdateUser', upload.array('Photo', 1) , async(req, res) => {
+    app.post('/UpdateUser', upload.array('Photo', 1) , async (req, res) => {
         const { Id } = req.body
         , _Id = new ObjectId(Id)
         , photo = {
@@ -84,7 +84,7 @@ module.exports = (app, Users, Properties) => {
         res.send( {Update,Photo} )
     })
 
-    app.get('/AdminPanel/SetUsers', async(req, res) => {
+    app.get('/AdminPanel/SetUsers', async (req, res) => {
         const { Type, Filters, } = req.query
         , CountQuery = { 'IsAdmin': Type == 'Admins'}
         , FiltersQuery = {}
@@ -200,7 +200,7 @@ module.exports = (app, Users, Properties) => {
             Name: UserName,
         }
         Other.IsApproved = false
-
+        console.log(Other)
         const AddOffer = await Properties.insertOne( Other )
         , AddVendorProperty = await Users.updateOne({ '_id': new ObjectId( UserId ) },{ $push: { 'Properties': AddOffer.insertedId }})
         res.send( {AddOffer,AddVendorProperty} )
@@ -221,7 +221,13 @@ module.exports = (app, Users, Properties) => {
         res.send( properties )
     })
     app.get('/SetProperties', async (req, res) => {
-        const Documents = await Properties.find({ 'IsApproved': true }).toArray()
+        const { Location, Type, Category } = req.query
+        , MatchQuery = { 'IsApproved': true }
+        if (Location) MatchQuery['General.Location'] = Location
+        if (Type) MatchQuery['General.Type'] = Type
+        if (Category) MatchQuery['General.Category'] = Category
+
+        const Documents = await Properties.find( MatchQuery ).toArray()
         , properties = []
         for (const Document in Documents) {
             properties.push({

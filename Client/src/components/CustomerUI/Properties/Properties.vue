@@ -14,7 +14,7 @@
             <div class="p-4 pb-0">
                 <h5 class="c-accent mb-2 fw-bold">{{ Property.Info.Price }}<i class="s13">Dz</i> </h5>
                 <h5 class="d-block c-light-black mb-3 fs-4 fw-bold letter-n-05">{{ Property.Info.Name }}</h5>
-                <p class="c-accent s17" ><i class="fa fa-map-marker-alt c-accent me-2"></i>{{ Property.Info.Location }}</p>
+                <p class="c-accent s17" ><i class="fa fa-map-marker-alt c-accent me-2"></i>{{ Property.Info.Location + ', ' + Property.Info.Address }}</p>
             </div>
 
             <div class="w-fit mx-auto my-3" v-if="Delete" >

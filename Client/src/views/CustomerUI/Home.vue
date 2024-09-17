@@ -35,29 +35,35 @@
                             <div class="col-md-4">
                                 <input type="text" class="form-control border-0 py-3" placeholder="Search Keyword">
                             </div>
-                            <div class="col-md-4">
-                                <select class="form-select border-0 py-3">
-                                    <option selected>Property Type</option>
-                                    <option value="1">Apartment</option>
-                                    <option value="2">Villa</option>
-                                    <option value="3">Garage</option>
-                                </select>
+                            <div class="col-md-4 dropdown d-flex align-items-center">
+                                <input type="text" class="dropdown-toggle rd-5 form-control" style="padding: 15px 10px;"
+                                    :value="Query.Type == 'Type' ? 'Type' : Query.Type" data-bs-toggle="dropdown" readonly >
+                                <ul class="dropdown-menu w-100">
+                                    <li class="dropdown-item pointer" @click="Query.Type = 'Apartment' " > Apartement </li>
+                                    <li class="dropdown-item pointer" @click="Query.Type = 'Villa' " > Villa </li>
+                                    <li class="dropdown-item pointer" @click="Query.Type = 'Home' " > Home </li>
+                                    <li class="dropdown-item pointer" @click="Query.Type = 'Office' " > Office </li>
+                                    <li class="dropdown-item pointer" @click="Query.Type = 'Garage' " > Garage </li>
+                                    <li class="dropdown-item pointer" @click="Query.Type = 'Type' " > All </li>
+                                </ul>
+                                <i class="fa-solid fa-chevron-down s15 c-text Arrow-Down" style="transform: translateX(-5px); margin: -20px;" ></i>
                             </div>
-                            <div class="col-md-4">
-                                <select class="form-select border-0 py-3">
-                                    <option selected>Location</option>
-                                    <option value="1">Oum El Bouaghi</option>
-                                    <option value="2">Bejaia</option>
-                                    <option value="3">Khenchela</option>
-                                </select>
+                            <div class="col-md-4 dropdown d-flex align-items-center">
+                                <input type="text" class="dropdown-toggle rd-5 form-control" style="padding: 15px 10px;"
+                                    :value="Query.Location == 'Location' ? 'Location' : Query.Location" data-bs-toggle="dropdown" readonly >
+                                <ul class="dropdown-menu w-100">
+                                    <li class="dropdown-item pointer" @click="Query.Location = 'Oum El Bouaghi' " > Oum El Bouaghi </li>
+                                    <li class="dropdown-item pointer" @click="Query.Location = 'Bejaia' " > Bejaia </li>
+                                    <li class="dropdown-item pointer" @click="Query.Location = 'Khenchela' " > Khenchela </li>
+                                    <li class="dropdown-item pointer" @click="Query.Location = 'Location' " > All </li>
+                                </ul>
+                                <i class="fa-solid fa-chevron-down s15 c-text Arrow-Down" style="transform: translateX(-5px); margin: -20px;" ></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <button class="Bttn ActiveBttn border-0 w-100 py-3">
-                            <router-link to="/Explore" class="c-text" >Search</router-link>
-                        </button>
-                    </div>
+                    <router-link class="col-md-2 Bttn ActiveBttn border-0 py-3 t-center" :to="{ name:'Explore', params: { Type: Query.Type, Location: Query.Location } }" >
+                        <span class="c-text fw-bold" >Search</span>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -125,13 +131,13 @@
                     <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
                         <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
                             <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary active" data-bs-toggle="pill" href="#tab-1">Featured</a>
+                                <a class="btn btn-outline-primary active" data-bs-toggle="pill" href="#tab-1" @click="Query.Category = null" >Featured</a>
                             </li>
                             <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-2">For Sell</a>
+                                <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-2" @click="Query.Category = 'Sale'" >For Sale</a>
                             </li>
                             <li class="nav-item me-0">
-                                <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-3">For Rent</a>
+                                <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-3" @click="Query.Category = 'Rent'" >For Rent</a>
                             </li>
                         </ul>
                     </div>
@@ -141,7 +147,7 @@
                         <div class="row g-5">
                             <Properties :Properties="Properties" data-wow-delay="0.1s" />
                             <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                                <router-link to="/Explore" class="Bttn ActiveBttn py-3 px-5">Browse More Property</router-link>
+                                <router-link :to="{ name:'Explore', params: { Type: 'Type', Location: 'Location'} }" class="Bttn ActiveBttn py-3 px-5">Browse More Property</router-link>
                             </div>
                         </div>
                     </div>
@@ -149,7 +155,7 @@
                         <div class="row g-5">
                             <Properties :Properties="Properties" data-wow-delay="0.1s" />
                             <div class="col-12 text-center">
-                                <router-link to="/Explore" class="btn btn-primary py-3 px-5">Browse More Property</router-link>
+                                <router-link :to="{ name:'Explore', params: { Type: 'Type', Location: 'Location'} }" class="btn btn-primary py-3 px-5">Browse More Property</router-link>
                             </div>
                         </div>
                     </div>
@@ -157,7 +163,7 @@
                         <div class="row g-5">
                             <Properties :Properties="Properties" data-wow-delay="0.1s" />
                             <div class="col-12 text-center">
-                                <router-link to="/Explore" class="btn btn-primary py-3 px-5">Browse More Property</router-link>
+                                <router-link :to="{ name:'Explore', params: { Type: 'Type', Location: 'Location'} }" class="btn btn-primary py-3 px-5">Browse More Property</router-link>
                             </div>
                         </div>
                     </div>
@@ -211,7 +217,7 @@
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Quick Links</h5>
                         <router-link to="/" class="btn btn-link text-white-50"> Home </router-link>
-                        <router-link to="/Explore" class="btn btn-link text-white-50"> Explore </router-link>
+                        <router-link :to="{ name:'Explore', params: { Type: 'Type', Location: 'Location'} }" class="btn btn-link text-white-50"> Explore </router-link>
                         <router-link to="/List" class="btn btn-link text-white-50"> List Your Property </router-link>
                         <router-link to="/Profile" class="btn btn-link text-white-50" v-show="IsLoggedIn" > Profile </router-link>
                     </div>
@@ -284,6 +290,11 @@
                 { Name: 'Shop',      Img: Shop,      Value: '123 Properties',},
                 { Name: 'Garage',    Img: Garage,    Value: '123 Properties',},
             ],
+            Query: {
+                Type: 'Type',
+                Location: 'Location',
+                Category: null,
+            },
             Properties: [],
         }},
         methods: {
@@ -293,9 +304,7 @@
             ...mapGetters(['IsLoggedIn',]),
         },
         created() {
-            this.SetProperties().then( res => {
-                this.Properties = res
-            })
+            this.SetProperties( ).then( res => this.Properties = res )
         },
     }
     

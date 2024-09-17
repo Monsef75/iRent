@@ -90,8 +90,9 @@
         methods: {
             signIn() {
                 this.Waiting = true
-                this.SignIn( this.User ).then( ()=> this.Waiting = false )
+                this.SignIn( this.User )
                 .catch( err => this.ServerError = err)
+                .finally( ()=> this.Waiting = false )
             },
             ...mapActions(['SignIn',]),
         },

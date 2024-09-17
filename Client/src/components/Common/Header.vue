@@ -15,7 +15,7 @@
                     <router-link to="/" class="px-3 c-light-white trans3" :class="{'Active': Routers[0].Active}"  > Home </router-link> 
                 </li>
                 <li class="fw-bold letter-n-05 pointer" >
-                    <router-link to="/Explore" class="px-3 c-light-white trans3" :class="{'Active': Routers[1].Active}"  > Explore </router-link> 
+                    <router-link :to="{ name:'Explore', params: { Type: 'Type', Location: 'Location' } }" class="px-3 c-light-white trans3" :class="{'Active': Routers[1].Active}"  > Explore </router-link> 
                 </li>
                 <li class="fw-bold letter-n-05 pointer" >
                     <router-link :to="IsLoggedIn ? '/List' : '/Membership/Sign-In'" class="px-3 c-light-white trans3" :class="{'Active': Routers[2].Active}"  > List Your Property </router-link>

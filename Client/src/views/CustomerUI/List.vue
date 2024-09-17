@@ -28,8 +28,7 @@
                     :style="{'background-image': `url(${ Imgs.PrimImg })`}" >
                     <label for="Img-Primary" class="position-absolute h-100 w-100 pointer">
                         <input ref="FilePrim" type="file" id="Img-Primary" class="position-absolute" v-on:change="ImgPrimary">
-                        <span class="position-absolute s40 fw-bold c-light-black3 trans3">{{ PrimImgText }}</span>
-                        <span class="position-absolute s40 fw-bold c-light-black3 trans3">{{ PrimImgRslt }}</span>
+                        <img class="position-absolute start-50 top-50 trans3" src="/src/assets/Imgs/CustomerUI/List/Degrees.png" alt="">
                     </label>
                 </div>
                 <div class="Imgs-Secondary d-grid gap-3 flex-grow-1">
@@ -47,24 +46,47 @@
                 <div class="General bc-light-accent3 p-4 col-12 d-flex flex-wrap gap-2 rd-10 shadow">
 
                     <h2 class="fw-bold letter-n-05 c-text mb-2" style="flex-basis: 100%;" >General Information</h2>
-                    <label for="Gen1" class="rd-5 pointer bc-background" style="flex-basis: calc(50% - .25rem);">
+                    <label for="Gen1" class="rd-5 pointer bc-background flex-grow-1">
                         <input id="Gen1" type="text" class="s20 bc-transparent px-3" placeholder="Property Name" v-model="Info.General.Name" required >
                         <i class="fa fa-pen-to-square s20 t-center bd-l-black c-light-accent2 trans3" ></i>
                     </label>
-                    <label for="Gen2" class="rd-5 pointer bc-background" style="flex-basis: calc(50% - .25rem);">
-                        <input id="Gen2" type="text" class="s20 bc-transparent px-3" placeholder="Property Location" v-model="Info.General.Location" required >
+                    <label for="Gen6" class="dropdown rd-5 pointer bc-background flex-grow-1">
+                        <input id="Gen6" type="text" class="dropdown-toggle s20 bc-transparent px-3" placeholder="Property Loctaion" 
+                        :value="Info.General.Location ? Info.General.Location : null" readonly  data-bs-toggle="dropdown">
+                        <ul class="dropdown-menu w-100">
+                            <li class="dropdown-item" @click="Info.General.Location = 'Oum El Bouaghi' " > Oum El Bouaghi </li>
+                            <li class="dropdown-item" @click="Info.General.Location = 'Bejaia' " > Bejaia </li>
+                            <li class="dropdown-item" @click="Info.General.Location = 'Khenchela' " > Khenchela </li>
+                        </ul>
+                        <i class="fa fa-map-marker-alt s20 t-center bd-l-black c-light-accent2 trans3" ></i>
+                    </label>
+                    <label for="Gen2" class="rd-5 pointer bc-background flex-grow-1">
+                        <input id="Gen2" type="text" class="s20 bc-transparent px-3" placeholder="Property Address" v-model="Info.General.Address" required >
                         <i class="fa fa-map-marker-alt s20 t-center bd-l-black c-light-accent2 trans3" ></i>
                     </label>
                     <label for="Gen3" class="rd-5 pointer bc-background flex-grow-1">
                         <input id="Gen3" type="text" class="s20 bc-transparent px-3" placeholder="Property Price (Per Month for Rent)" v-model="Info.General.Price" required >
                         <i class="fa fa-tag s20 t-center bd-l-black c-light-accent2 trans3" ></i>
                     </label>
-                    <label for="Gen4" class="rd-5 pointer bc-background flex-grow-1">
-                        <input id="Gen4" type="text" class="s20 bc-transparent px-3" placeholder="Property Type" v-model="Info.General.Type" required >
+                    <label for="Gen4" class="dropdown rd-5 pointer bc-background flex-grow-1">
+                        <input id="Gen4" type="text" class="dropdown-toggle s20 bc-transparent px-3" placeholder="Property Category" 
+                        :value="Info.General.Category ? Info.General.Category : null" readonly  data-bs-toggle="dropdown">
+                        <ul class="dropdown-menu w-100">
+                            <li class="dropdown-item" @click="Info.General.Category = 'Rent' " > Rent </li>
+                            <li class="dropdown-item" @click="Info.General.Category = 'Sale' " > Sale </li>
+                        </ul>
                         <i class="fa fa-building s20 t-center bd-l-black c-light-accent2 trans3" ></i>
                     </label>
-                    <label for="Gen5" class="rd-5 pointer bc-background flex-grow-1">
-                        <input id="Gen5" type="text" class="s20 bc-transparent px-3" placeholder="Property Category" v-model="Info.General.Category" required >
+                    <label for="Gen5" class="dropdown rd-5 pointer bc-background flex-grow-1">
+                        <input id="Gen4" type="text" class="dropdown-toggle s20 bc-transparent px-3" placeholder="Property Type" 
+                        :value="Info.General.Type ? Info.General.Type : null" readonly  data-bs-toggle="dropdown">
+                        <ul class="dropdown-menu w-100">
+                            <li class="dropdown-item" @click="Info.General.Type = 'Apartment' " > Apartment </li>
+                            <li class="dropdown-item" @click="Info.General.Type = 'Villa' " > Villa </li>
+                            <li class="dropdown-item" @click="Info.General.Type = 'Home' " > Home </li>
+                            <li class="dropdown-item" @click="Info.General.Type = 'Office' " > Office </li>
+                            <li class="dropdown-item" @click="Info.General.Type = 'Garage' " > Garage </li>
+                        </ul>
                         <i class="fa fa-layer-group s20 t-center bd-l-black c-light-accent2 trans3" ></i>
                     </label>
 
@@ -163,6 +185,7 @@
                     Type: null,
                     Category: null,
                     Location: null,
+                    Address: null,
                     Price: null,
                 },
                 Offers: {
@@ -188,8 +211,6 @@
             DescInfoValid : false,
             CntcInfoValid : false,
 
-            PrimImgText: "Browser Image",
-            PrimImgRslt: "500x500",
             ScndImgsText: [
                 "Browser Image","Browser Image","Browser Image","Browser Image",
             ],
@@ -216,7 +237,6 @@
                 Reader.onload = (event) => {
                     this.Imgs.PrimImg = event.target.result
                 }
-                this.PrimImgText = "Change Image"
                 this.$refs.DivPrim.classList.remove('bd-dashed-light-white')
             },
             ImgSecondary( i ) {
@@ -359,16 +379,10 @@
             .Img-Primary {
                 width: 45%;
                 label {
-                    span:first-of-type {
-                    top: 50%;
-                    left: 50%;
-                    transform: translate( -50% , -50% );
-                    white-space: nowrap;
-                    }
-                    span:last-of-type {
-                        top: 60%;
-                        left: 50%;
-                        transform: translate( -50% , -60% );
+                    img {
+                        width: 400px;
+                        transform: translate( -50% , -50% );
+                        opacity: .5;
                     }
                 }
 
@@ -384,12 +398,14 @@
                     }
                 }
             }
-            .Img-Primary:hover,
             .Imgs-Secondary div:hover {
                 border-color: var(--Pirmary);
                 span {
                     color: red;
                 }
+            }
+            .Img-Primary:hover img {
+                opacity: 1;
             }
         }
         .Form {

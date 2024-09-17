@@ -3,8 +3,8 @@ import axios from 'axios'
 import router from '@/router/router.js'
 // VUE_APP_Facebook_App_Id: '922479025807225',
 // VUE_APP_Facebook_App_Secret: '99a969281f19f1cfeb817029cf7e9714',
-const END_POINT = 'https://irent-6b4p.onrender.com'
-// const END_POINT = 'http://localhost:3000'
+// const END_POINT = 'https://irent-6b4p.onrender.com'
+const END_POINT = 'http://localhost:3000'
 
 const store = createStore({
     
@@ -267,9 +267,9 @@ const store = createStore({
                 .catch( err => console.log( 'Failed',err ) )
             })
         },
-        SetProperties( context ) {                                   // v/Home.vue + v//Explore.vue
+        SetProperties( context,Query ) {                             // v/Home.vue + v//Explore.vue
             return new Promise((resolve, reject) => { 
-                axios.get(END_POINT + '/SetProperties')
+                axios.get(END_POINT + '/SetProperties', { params: Query })
                 .then( res => {
                     resolve(res.data)
                 })
