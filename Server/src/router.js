@@ -42,7 +42,7 @@ module.exports = (app, Users, Properties) => {
     })
     app.get('/Membership/SignIn', async (req, res) => {
         const { Email,Password } = req.query.User
-        , User = await Users.findOne( {'Email':Email} )
+        , User = await Users.findOne({ 'Email': Email.toLowerCase() })
         
         if (User) {
             

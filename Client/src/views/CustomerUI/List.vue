@@ -157,11 +157,11 @@
             </form>
 
 
-            <button class="ButtonSpinner-accent mt-5 bc-primary mx-auto rd-5" style="width: 300px; height: 53.5px;" v-show="Waiting">
+            <button class="ButtonSpinner-accent mt-5 bc-primary mx-auto rd-5" style="width: 300px; height: 53.5px;" v-if="Waiting">
                 <span class="Spinner"></span>
             </button>
             <button class="py-2 mt-5 s25 fw-bold d-block mx-auto rd-5" :class="InfoValid && ImagesValid ? 'ActiveBttn' : 'InactiveBttn'" 
-             style="width: 300px;" @click="addProperty" :disabled="!(InfoValid && ImagesValid)" v-show="!Waiting" >
+             style="width: 300px;" @click="addProperty" :disabled="!(InfoValid && ImagesValid)" v-else >
                 Submit
             </button>
 

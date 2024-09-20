@@ -118,6 +118,8 @@
 
         </section>
         
+        <VueMap />
+
     </main>
     
 </template>
@@ -125,11 +127,12 @@
 <script>
     
     import CheckBox from '@/components/CustomerUI/Elements/CheckBox.vue'
+    import VueMap from '@/components/CustomerUI/Map/Map.vue'
     import { mapActions } from 'vuex'
 
     export default {
     
-        components: {CheckBox,},
+        components: {CheckBox,VueMap},
         data() { return {
             Info: {
                 Id: null,
@@ -172,10 +175,6 @@
         },
         created() {
             this.SetDetails({PropertyId: this.$route.params.PropertyId }).then( (res)=> {
-                // res.Description.Adults += ' Adults' 
-                // res.Description.Size   += ' m' 
-                // res.Description.Bed    += ' Beds' 
-                // res.Description.Rooms  += ' Rooms' 
                 const Info = {
                     Id: res._id,
                     General: res.General,
