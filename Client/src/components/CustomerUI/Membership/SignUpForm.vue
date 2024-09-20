@@ -111,7 +111,7 @@
                 this.Waiting = true
                 this.SignUpAuthentification({Name: this.User.Name,Email: this.User.Email}).then( ()=> {
                     this.User.Joined_In = this.FormatDate(new Date())
-                    this.SignUp( this.User ).then( this.Waiting = false )
+                    this.SignUp( this.User ).finally( ()=> this.Waiting = false )
                 })
                 .catch( err => {
                     this.Waiting = false
