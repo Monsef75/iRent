@@ -19,6 +19,7 @@ module.exports = (app, Users, Properties) => {
         else if (IsNameExist) res.status(409).send( {UsedEmail: null, UsedName: Name, Type: 'Name'} )
         else res.status(200).send('Success')
     })
+
     app.post('/Membership/SignUp', async (req, res) => {
         const { Name, Email, Password, Joined_In } = req.body
         , HashedPassword = await bcrypt.hash( Password,10 )
@@ -40,6 +41,7 @@ module.exports = (app, Users, Properties) => {
         res.send( {Token,UserInfo: User} )
 
     })
+    
     app.get('/Membership/SignIn', async (req, res) => {
         const { Email,Password } = req.query.User
         , User = await Users.findOne({ 'Email': Email.toLowerCase() })
