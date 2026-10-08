@@ -12,11 +12,11 @@ module.exports = (app, Users, Properties) => {
 
     app.get('/Membership/SignUpAuthentification', async (req, res) => {
         const { Email,Name } = req.query
-        , IsEmailExist = await Users.findOne( { 'Email': Email.toLowerCase() } )
-        , IsNameExist = await Users.findOne( { 'Name': Name } )
-        if (IsEmailExist && IsNameExist) res.status(409).send( {UsedEmail: Email, UsedName: Name, Type: 'Both'} )
-        else if (IsEmailExist) res.status(409).send( {UsedEmail: Email, UsedName: null, Type: 'Email'} )
-        else if (IsNameExist) res.status(409).send( {UsedEmail: null, UsedName: Name, Type: 'Name'} )
+        , IsEmailExist = await Users.findOne({ 'Email': Email.toLowerCase() } )
+        , IsNameExist = await Users.findOne({ 'Name': Name } )
+        if (IsEmailExist && IsNameExist) res.status(409).send({ UsedEmail: Email, UsedName: Name, Type: 'Both'} )
+        else if (IsEmailExist) res.status(409).send({ UsedEmail: Email, UsedName: null, Type: 'Email'} )
+        else if (IsNameExist) res.status(409).send({ UsedEmail: null, UsedName: Name, Type: 'Name'} )
         else res.status(200).send('Success')
     })
 

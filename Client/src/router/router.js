@@ -18,14 +18,14 @@ const router = createRouter({
         component: Membership
     },
     {
-      path: '/',
-      name: 'Home',
-      component: Home
+        path: '/',
+        name: 'Home',
+        component: Home
     },
     {
-      path: '/Explore/:Type/:Location',
-      name: 'Explore',
-      component: Explore
+        path: '/Explore/:Type/:Location',
+        name: 'Explore',
+        component: Explore
     },
     {
         path: '/Details/:PropertyId',
@@ -33,19 +33,19 @@ const router = createRouter({
         component: Details
     },
     {
-      path: '/List',
-      name: 'List',
-      component: List
+        path: '/List',
+        name: 'List',
+        component: List
     },
     {
-      path: '/Profile',
-      name: 'Profile',
-      component: Profile
+        path: '/Profile',
+        name: 'Profile',
+        component: Profile
     },
     {
-      path: '/AdminPanel',
-      name: 'AdminPanel',
-      component: AdminPanal
+        path: '/AdminPanel',
+        name: 'AdminPanel',
+        component: AdminPanal
     },
   ]
 })
