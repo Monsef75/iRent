@@ -5,15 +5,15 @@
 # ----------------------------
 # 📦 Dependencies
 # ----------------------------
-/client/node_modules/
-/server/node_modules/
+/Client/node_modules/
+/Server/node_modules/
 
 # ----------------------------
 # 🔐 Environment Variables
 # ----------------------------
 
-/client/.env*
-/server/.env*
+/Client/.env*
+/Server/.env*
 
 # ----------------------------
 # 🧾 Logs
@@ -29,13 +29,13 @@ lerna-debug.log*
 # ⚙️ Build & Coverage Outputs
 # ----------------------------
 
-/client/dist/
-/client/dist-ssr/
-/client/build/
-/client/coverage/
-/server/dist/
-/server/build/
-/server/coverage/
+/Client/dist/
+/Client/dist-ssr/
+/Client/build/
+/Client/coverage/
+/Server/dist/
+/Server/build/
+/Server/coverage/
 
 # ----------------------------
 # 🕒 Runtime Data
